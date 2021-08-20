@@ -13,10 +13,18 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const recognition = new SpeechRecognition();
 
 recognition.onstart = () => {
+  //começar animação
+  
+  const outline = document.getElementById("delayed");
+  outline.style.animation = "pulse 3s ease-out infinite";
   console.log("voice activated, you can speak");
 }
 
 recognition.onresult = (event) => {
+  //parar animação
+  const outline = document.getElementById("delayed");
+  outline.style.animation = "";
+  console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
@@ -34,7 +42,12 @@ recognition.onresult = (event) => {
     console.log("MOVIE: ", movie);
     fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
       .then(response => response.json())
-      .then(data => console.log("DATA: ", data))
+      .then(data => {
+        const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+        console.log("DATA: ", data)
+      })
       .catch(error => console.log(error))
   }
 }
