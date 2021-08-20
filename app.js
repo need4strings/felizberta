@@ -20,10 +20,16 @@ recognition.onresult = (event) => {
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
+  let resultArr;
+
+  if (userLanguage === "pt-PT") {
+    resultArr = result.split("filme");
+  } else {
+    resultArr = result.split("movie");
+  }
 
   if (result.includes("filme") || result.includes("movie")) {
     console.log('TENHO FILME');
-    const resultArr = result.split("filme");
     const movie = resultArr[1];
     console.log("MOVIE: ", movie);
     fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
