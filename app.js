@@ -13,17 +13,12 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const recognition = new SpeechRecognition();
 
 recognition.onstart = () => {
-  //começar animação
-  
-  const outline = document.getElementById("delayed");
-  outline.style.animation = "pulse 3s ease-out infinite";
+  startAnimation();
   console.log("voice activated, you can speak");
 }
 
 recognition.onresult = (event) => {
-  //parar animação
-  const outline = document.getElementById("delayed");
-  outline.style.animation = "";
+  stopAnimation();
   console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
@@ -50,4 +45,17 @@ recognition.onresult = (event) => {
       })
       .catch(error => console.log(error))
   }
+}
+
+const startAnimation = () => {
+  //começar animação
+  
+  const outline = document.getElementById("delayed");
+  outline.style.animation = "pulse 3s ease-out infinite";
+}
+
+const stopAnimation = () => {
+  //parar animação
+  const outline = document.getElementById("delayed");
+  outline.style.animation = "";
 }
