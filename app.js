@@ -17,6 +17,7 @@ recognition.onstart = () => {
   console.log("voice activated, you can speak");
 }
 
+/* Deal with voice command */
 recognition.onresult = (event) => {
   stopAnimation();
   console.log('EVENNT: ', event);
@@ -32,30 +33,34 @@ recognition.onresult = (event) => {
   }
 
   if (result.includes("filme") || result.includes("movie")) {
-    console.log('TENHO FILME');
-    const movie = resultArr[1];
-    console.log("MOVIE: ", movie);
-    fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
-      .then(response => response.json())
-      .then(data => {
-        const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
-        utterance.rate = 1;
-        speechSynthesis.speak(utterance);
-        console.log("DATA: ", data)
-      })
-      .catch(error => console.log(error))
+    dealWithMovie(resultArr);
   }
 }
 
+/* Start Animation */
 const startAnimation = () => {
-  //começar animação
-  
   const outline = document.getElementById("delayed");
   outline.style.animation = "pulse 3s ease-out infinite";
 }
 
+/* Stop animation */
 const stopAnimation = () => {
-  //parar animação
   const outline = document.getElementById("delayed");
   outline.style.animation = "";
+}
+
+/* Deal with movies */
+const dealWithMovie = (resultArr) => {
+  console.log('TENHO FILME');
+  const movie = resultArr[1];
+  console.log("MOVIE: ", movie);
+  fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
+    .then(response => response.json())
+    .then(data => {
+      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+      console.log("DATA: ", data)
+    })
+    .catch(error => console.log(error))
 }
