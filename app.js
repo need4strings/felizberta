@@ -7,6 +7,7 @@ window.onload = () => {
   });
 }
 
+const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -16,6 +17,7 @@ recognition.onstart = () => {
 }
 
 recognition.onresult = (event) => {
+  console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
 
