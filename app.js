@@ -19,7 +19,7 @@ recognition.onresult = (event) => {
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
 
-  if (result.includes("filme")) {
+  if (result.includes("filme") || result.includes("movie")) {
     console.log('TENHO FILME');
     const resultArr = result.split("filme");
     const movie = resultArr[1];
