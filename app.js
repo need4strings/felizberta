@@ -36,9 +36,12 @@ recognition.onresult = (event) => {
     }
 
     dealWithMovie(resultArr);
-  } else if (result.includes("pesquisa")) {
+  } else if (result.includes("Google")) {
     resultArr = result.split("Google");
     dealWithSearch(resultArr);
+  } else if (result.includes("YouTube")) {
+    resultArr = result.split("YouTube");
+    dealWithYoutube(resultArr);
   }
 }
 
@@ -78,4 +81,12 @@ const dealWithSearch = (resultArr) => {
   console.log('VOU PROCURAR POR: ', searchFor);
 
   window.open("https://www.google.com/search?q=" + searchFor, '_blank');
+}
+
+/* Deal with YouTube search */
+const dealWithYoutube = (resultArr) => {
+  console.log("TEMOS YOUTUBE");
+  const searchFor = resultArr[1];
+  console.log("VOU PROCURAR POR: ", searchFor);
+  window.open("https://www.youtube.com/results?search_query=" + searchFor, '_blank');
 }
