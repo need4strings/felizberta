@@ -66,6 +66,15 @@ body {
   }
 }
 
+@keyframes moveDown{
+	0% {
+    transform: translateY(0px); 
+  }
+  100% {
+	  transform: scale(0.5)translateY(800px);
+  }
+}
+
 #delayed {
 	animation-delay: 1.5s;
 }
