@@ -24,15 +24,16 @@ recognition.onresult = (event) => {
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
-  let resultArr;
-
-  if (userLanguage === "pt-PT") {
-    resultArr = result.split("filme");
-  } else {
-    resultArr = result.split("movie");
-  }
 
   if (result.includes("filme") || result.includes("movie")) {
+    let resultArr;
+
+    if (userLanguage === "pt-PT") {
+      resultArr = result.split("filme");
+    } else {
+      resultArr = result.split("movie");
+    }
+    
     dealWithMovie(resultArr);
   }
 }
