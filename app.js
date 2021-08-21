@@ -20,7 +20,7 @@ recognition.onstart = () => {
 /* Deal with voice command */
 recognition.onresult = (event) => {
   stopAnimation();
-  
+
   console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
@@ -34,8 +34,11 @@ recognition.onresult = (event) => {
     } else {
       resultArr = result.split("movie");
     }
-    
     dealWithMovie(resultArr);
+
+  } else if (result.includes("cocktails")) {
+    dealWithSuggestedCocktails()
+      .catch(e => { console.log('erro no fetch') });
   }
 }
 
@@ -52,7 +55,7 @@ const stopAnimation = () => {
 }
 
 /*Start movingDown animation*/
-const moveDownAnimation =() =>{
+const moveDownAnimation = () => {
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
   //box.style.animationPlayState = "paused";
@@ -76,4 +79,53 @@ const dealWithMovie = (resultArr) => {
     .catch(error => console.log(error))
 }
 
-/*Deal with cocktails*/
+/* Deal with a request for suggested cocktails */
+async function dealWithSuggestedCocktails() {
+  let fetchedArray = await fetchCocktails();
+  console.log(fetchedArray);
+
+  const utterance = new SpeechSynthesisUtterance("Encontrei isto sobre cócktails meu brou");
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
+  moveDownAnimation();
+
+ // const presented = await presentCocktails(fetchedArray);
+
+
+
+}
+
+/*fetch function for suggested cocktaisl */
+async function fetchCocktails() {
+  let myRequest = new Request('https:thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+
+  let response = await fetch(myRequest);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  let json = await response.json();
+  return json;
+}
+
+/*function to present 10 random suggested cocktails*/
+/*async function presentCocktails(fetchedArray) {
+  let cocktailName = fetchedArray + '.drinks[0].strDrink';
+  let cocktailImage = fetchedArray + '.drinks[0].strDrinkThumb';
+  let totalCocktailsToPresent = 10;
+  let chosen10Cocktails = [];
+  let count = 0;
+  let randomIndex;
+
+  while (count !== 10) {
+
+    randomIndex = Math.floor(Math.random() * 100);
+    if (!chosen10Cocktails.includes(fetchedArray[randomIndex])) {
+      chosen10Cocktails.push(fetchedArray[randomIndex]);
+      count++;
+    }
+  }
+  console.log(chosen10Cocktails);
+}*/
+
