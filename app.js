@@ -38,7 +38,7 @@ recognition.onresult = (event) => {
 
   } else if (result.includes("cocktails")) {
     dealWithSuggestedCocktails()
-      .catch(e => { console.log('erro no fetch') });
+      .catch(error => console.log(error));
   }
 }
 
@@ -82,14 +82,14 @@ const dealWithMovie = (resultArr) => {
 /* Deal with a request for suggested cocktails */
 async function dealWithSuggestedCocktails() {
   let fetchedArray = await fetchCocktails();
-  console.log(fetchedArray);
+  console.log('fetched array ',fetchedArray);
 
   const utterance = new SpeechSynthesisUtterance("Encontrei isto sobre cócktails meu brou");
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
   moveDownAnimation();
 
- // const presented = await presentCocktails(fetchedArray);
+ const presented = await presentCocktails(fetchedArray);
 
 
 
@@ -98,7 +98,6 @@ async function dealWithSuggestedCocktails() {
 /*fetch function for suggested cocktaisl */
 async function fetchCocktails() {
   let myRequest = new Request('https:thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
-
   let response = await fetch(myRequest);
 
   if (!response.ok) {
@@ -110,22 +109,61 @@ async function fetchCocktails() {
 }
 
 /*function to present 10 random suggested cocktails*/
-/*async function presentCocktails(fetchedArray) {
-  let cocktailName = fetchedArray + '.drinks[0].strDrink';
-  let cocktailImage = fetchedArray + '.drinks[0].strDrinkThumb';
+async function presentCocktails(fetchedArray) {
+  let cocktailName;
+  let cocktailImage;
   let totalCocktailsToPresent = 10;
   let chosen10Cocktails = [];
-  let count = 0;
   let randomIndex;
 
-  while (count !== 10) {
-
+  for (let i = 0; i < totalCocktailsToPresent; i++) {
+    //falta verificação para evitar que possam ser indexes iguais
     randomIndex = Math.floor(Math.random() * 100);
-    if (!chosen10Cocktails.includes(fetchedArray[randomIndex])) {
-      chosen10Cocktails.push(fetchedArray[randomIndex]);
-      count++;
-    }
+    chosen10Cocktails.push(fetchedArray.drinks[randomIndex]);
   }
-  console.log(chosen10Cocktails);
-}*/
+  console.log('chosen 10', chosen10Cocktails);
+
+  //let chosen10Cocktails = await choose10Cocktais(fetchedArray); 
+
+  /*$('div.result').
+  $('.result').html('<h1>rfyghnjmk>/h1>');
+  $('.result').append('<div></div>');
+  $('.result').after('<div></div>');*/
+  for (let i = 0; i < chosen10Cocktails.length; i++) {
+    cocktailImage = chosen10Cocktails[i].strDrinkThumb;
+    cocktailName = chosen10Cocktails[i].strDrink;
+    $('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
+    $('div.result').append(`<img id="cocktail" src="${cocktailImage}" 
+    onclick = "fetchCocktailById(${chosen10Cocktails[i].idDrink})" style = "cursor:pointer">`);
+  }
+  
+  //para fazer quando alguém carregar no botão uma seguinte vez
+  /*$('.result').empty();
+
+  //depois das fotos estarem clicaveis
+  $('div.cocktails').click(function(e){
+    //assim fico a saber o id da photo clicada
+    let id = e.currentTarget.id;
+    fetchCockttailById(id);
+  });
+
+  function fetchCockttailById(id){
+    
+  }*/
+}
+
+/*function to select 10 random cocktails*/
+async function choose10Cocktais(fetchedArray){
+  let totalCocktailsToPresent = 10;
+  let chosen10Cocktails = [];
+  let randomIndex;
+
+  for (let i = 0; i < totalCocktailsToPresent; i++) {
+    //falta verificação para evitar que possam ser indexes iguais
+    randomIndex = Math.floor(Math.random() * 100);
+    chosen10Cocktails.push(fetchedArray.drinks[randomIndex]);
+  }
+  console.log('chosen 10', chosen10Cocktails);
+  return choose10Cocktais;
+}
 
