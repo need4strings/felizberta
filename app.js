@@ -75,3 +75,5 @@ const dealWithMovie = (resultArr) => {
     })
     .catch(error => console.log(error))
 }
+
+/*Deal with cocktails*/
