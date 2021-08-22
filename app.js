@@ -191,7 +191,7 @@ async function fetchCocktails() {
 
 /*function to select 10 random cocktails*/
 function choose10Cocktails(fetchedArray) {
-  let totalCocktailsToPresent = 10;
+  let totalCocktailsToPresent = 6;
   let chosen10Cocktails = [];
   let randomIndex;
 

@@ -104,68 +104,38 @@ body {
 	margin: 21px;
 }
 
-/*.cocktailimage{
-  	width: 20%;
-  	padding: 5px;
-}
-
-.cocktailimage img{
-	padding: 10px;
-	width: 20%;
-	opacity: 1;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-}
-
-.cocktailimage:hover img {
-	opacity: .5;
-}
-
-
-
-* {
-  	box-sizing: border-box;
-}*/
-
-
 
 .result {
 	display: grid;
 	padding: 2rem;
-	grid-gap: 2rem;
-	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 0.5rem;
+	grid-template-columns: repeat(3, 1fr);
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
-.result div {
-	background: white;
+.result > div {
 	height:auto;
-	padding: 1rem;
-
 	display: flex;
 	flex-direction: column;
 	align-items:center;
-	
 }
 
 .cocktailImage img{
 	width: 100%;
  	height: auto;
+	transition: all 0.5s ease-in;
 }
 
 .cocktailImage:hover img{
-	animation: cocktailZoom 0.5s ease-in-out forwards;
-}
-
-@keyframes cocktailZoom {
-	0% {
-		transform: scale(1);
-  }
-  100% {
-	  transform: scale(1.05);
-  }
+	opacity: 0.5;
+	transform: scale(0.98);
 }
 
 * {
 	padding: 2px;
 }
 
+body{
+	font-family: 'Roboto', sans-serif;
+}
