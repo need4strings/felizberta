@@ -94,3 +94,16 @@ body {
 	position: absolute;
 	margin: 21px;
 }
+
+#cocktail {
+	width: 20%;
+    padding: 10px;
+}
+
+.result {
+	padding: 60px 200px;
+}
+
+* {
+  	box-sizing: border-box;
+}

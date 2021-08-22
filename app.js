@@ -13,6 +13,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const recognition = new SpeechRecognition();
 
 recognition.onstart = () => {
+  clearResult();
   startAnimation();
   console.log("voice activated, you can speak");
 }
@@ -135,7 +136,7 @@ function presentCocktails(fetchedArray) {
   for (let i = 0; i < fetchedArray.length; i++) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
-    $('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
+    //$('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
     $('div.result').append(`<img id="cocktail" src="${cocktailImage}" 
     onclick = "fetchCocktailById(${fetchedArray[i].idDrink})" style = "cursor:pointer">`);
   }
@@ -144,6 +145,10 @@ function presentCocktails(fetchedArray) {
 //function to fetch details after a click event on an individual cocktail image
 function fetchCocktailById(id) {
 
+}
+
+function clearResult(){
+  $('.result').empty();
 }
 
 
