@@ -22,6 +22,7 @@ recognition.onstart = () => {
 /* Deal with voice command */
 recognition.onresult = (event) => {
   stopAnimation();
+  
   console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
@@ -61,6 +62,14 @@ const stopAnimation = () => {
   outline.style.animation = "";
 }
 
+/*Start movingDown animation*/
+const moveDownAnimation =() =>{
+  const box = document.getElementById("box")
+  box.style.animation = "moveDown 2s forwards";
+  //box.style.animationPlayState = "paused";
+  //example 5s linear 2s infinite alternate
+}
+
 /* Deal with movies */
 const dealWithMovie = (resultArr) => {
   console.log('TENHO FILME');
@@ -75,6 +84,7 @@ const dealWithMovie = (resultArr) => {
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
       dealWithMovieTrailer(data.results[0].id);
+      moveDownAnimation();
     })
     .catch(error => console.log(error))
 }
