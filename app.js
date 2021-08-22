@@ -11,16 +11,18 @@ const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
+let isDown = false;
 
 recognition.onstart = () => {
   startAnimation();
   console.log("voice activated, you can speak");
+  clearResult();
 }
 
 /* Deal with voice command */
 recognition.onresult = (event) => {
   stopAnimation();
-  
+
   console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
@@ -34,8 +36,9 @@ recognition.onresult = (event) => {
     } else {
       resultArr = result.split("movie");
     }
-    
+
     dealWithMovie(resultArr);
+  
   }
 }
 
@@ -52,7 +55,8 @@ const stopAnimation = () => {
 }
 
 /*Start movingDown animation*/
-const moveDownAnimation =() =>{
+const moveDownAnimation = () => {
+  isDown = true;
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
   //box.style.animationPlayState = "paused";
@@ -72,6 +76,24 @@ const dealWithMovie = (resultArr) => {
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
       moveDownAnimation();
+      isDown = true;
     })
     .catch(error => console.log(error))
+}
+
+
+
+const clearResult = () => {
+  if (isDown) {
+    $('.result').empty();
+    moveUpAnimation();
+  }
+}
+const moveUpAnimation = () => {
+  console.log("estou a tentar ir para cima")
+  const box = document.getElementById("box")
+  box.style.animation = "moveUp 2s forwards";
+  
+  //box.style.animationPlayState = "paused";
+  //example 5s linear 2s infinite alternate
 }

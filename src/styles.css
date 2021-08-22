@@ -68,10 +68,19 @@ body {
 
 @keyframes moveDown{
 	0% {
-    transform: translateY(0px); 
+    transform: translateY(0); 
   }
   100% {
-	  transform: scale(0.5)translateY(800px);
+	  transform: scale(0.5)translateY(50rem);
+  }
+}
+
+@keyframes moveUp{
+	0% {
+		transform: scale(0.5)translateY(50rem);
+  }
+  100% {
+	  transform: scale(1)translateY(0);
   }
 }
 
@@ -94,3 +103,4 @@ body {
 	position: absolute;
 	margin: 21px;
 }
+
