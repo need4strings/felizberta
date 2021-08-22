@@ -58,8 +58,6 @@ const stopAnimation = () => {
 const moveDownAnimation = () => {
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
-  //box.style.animationPlayState = "paused";
-  //example 5s linear 2s infinite alternate
 }
 
 /* Deal with movies */
@@ -82,20 +80,23 @@ const dealWithMovie = (resultArr) => {
 /* Deal with a request for suggested cocktails */
 async function dealWithSuggestedCocktails() {
   let fetchedArray = await fetchCocktails();
-  console.log('fetched array ',fetchedArray);
 
-  const utterance = new SpeechSynthesisUtterance("Encontrei isto sobre cócktails meu brou");
+  const utterance = new SpeechSynthesisUtterance("Eis as minhas sugestões de cócketeiles meu brou");
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
   moveDownAnimation();
 
- const presented = await presentCocktails(fetchedArray);
+  const presented = await presentCocktails(fetchedArray);
 
-
-
+  //alternativa a tentar
+  /*fetchCocktails()
+    .then(result => {
+      presentCocktails(result);
+    })
+    .catch(error => console.log(error));*/
 }
 
-/*fetch function for suggested cocktaisl */
+/*fetch function for suggested cocktails */
 async function fetchCocktails() {
   let myRequest = new Request('https:thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
   let response = await fetch(myRequest);
@@ -105,55 +106,13 @@ async function fetchCocktails() {
   }
 
   let json = await response.json();
-  return json;
-}
+  let chosen10Cocktails = choose10Cocktails(json);
 
-/*function to present 10 random suggested cocktails*/
-async function presentCocktails(fetchedArray) {
-  let cocktailName;
-  let cocktailImage;
-  let totalCocktailsToPresent = 10;
-  let chosen10Cocktails = [];
-  let randomIndex;
-
-  for (let i = 0; i < totalCocktailsToPresent; i++) {
-    //falta verificação para evitar que possam ser indexes iguais
-    randomIndex = Math.floor(Math.random() * 100);
-    chosen10Cocktails.push(fetchedArray.drinks[randomIndex]);
-  }
-  console.log('chosen 10', chosen10Cocktails);
-
-  //let chosen10Cocktails = await choose10Cocktais(fetchedArray); 
-
-  /*$('div.result').
-  $('.result').html('<h1>rfyghnjmk>/h1>');
-  $('.result').append('<div></div>');
-  $('.result').after('<div></div>');*/
-  for (let i = 0; i < chosen10Cocktails.length; i++) {
-    cocktailImage = chosen10Cocktails[i].strDrinkThumb;
-    cocktailName = chosen10Cocktails[i].strDrink;
-    $('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
-    $('div.result').append(`<img id="cocktail" src="${cocktailImage}" 
-    onclick = "fetchCocktailById(${chosen10Cocktails[i].idDrink})" style = "cursor:pointer">`);
-  }
-  
-  //para fazer quando alguém carregar no botão uma seguinte vez
-  /*$('.result').empty();
-
-  //depois das fotos estarem clicaveis
-  $('div.cocktails').click(function(e){
-    //assim fico a saber o id da photo clicada
-    let id = e.currentTarget.id;
-    fetchCockttailById(id);
-  });
-
-  function fetchCockttailById(id){
-    
-  }*/
+  return chosen10Cocktails;
 }
 
 /*function to select 10 random cocktails*/
-async function choose10Cocktais(fetchedArray){
+function choose10Cocktails(fetchedArray) {
   let totalCocktailsToPresent = 10;
   let chosen10Cocktails = [];
   let randomIndex;
@@ -164,6 +123,35 @@ async function choose10Cocktais(fetchedArray){
     chosen10Cocktails.push(fetchedArray.drinks[randomIndex]);
   }
   console.log('chosen 10', chosen10Cocktails);
-  return choose10Cocktais;
+
+  return chosen10Cocktails;
 }
 
+/*function to present 10 random suggested cocktails*/
+function presentCocktails(fetchedArray) {
+  let cocktailName;
+  let cocktailImage;
+
+  for (let i = 0; i < fetchedArray.length; i++) {
+    cocktailImage = fetchedArray[i].strDrinkThumb;
+    cocktailName = fetchedArray[i].strDrink;
+    $('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
+    $('div.result').append(`<img id="cocktail" src="${cocktailImage}" 
+    onclick = "fetchCocktailById(${fetchedArray[i].idDrink})" style = "cursor:pointer">`);
+  }
+}
+
+//function to fetch details after a click event on an individual cocktail image
+function fetchCocktailById(id) {
+
+}
+
+
+//jQuery reminder
+/*$('div.result').
+ $('.result').html('<h1>rfyghnjmk>/h1>');
+ $('.result').append('<div></div>');
+ $('.result').after('<div></div>');
+
+//para fazer quando alguém carregar no botão uma seguinte vez
+/*$('.result').empty();*/
