@@ -147,14 +147,13 @@ const clearResult = () => {
     moveUpAnimation();
   }
 }
+
 const moveUpAnimation = () => {
   console.log("estou a tentar ir para cima")
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
-  
-  //box.style.animationPlayState = "paused";
-  //example 5s linear 2s infinite alternate
 }
+
 /* Deal with a request for suggested cocktails */
 async function dealWithSuggestedCocktails() {
   let fetchedArray = await fetchCocktails();
