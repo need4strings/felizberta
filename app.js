@@ -13,16 +13,18 @@ const googleSearchApiKey = "AIzaSyB4goZy0s0ULExCk1IKGt3EZtuVlwZL4nw";
 const weatherApiKey = "76fa95835f831b9bfd4c896318bce593";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
+let isDown = false;
 
 recognition.onstart = () => {
   startAnimation();
   console.log("voice activated, you can speak");
+  clearResult();
 }
 
 /* Deal with voice command */
 recognition.onresult = (event) => {
   stopAnimation();
-  
+
   console.log('EVENNT: ', event);
   console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
@@ -63,7 +65,8 @@ const stopAnimation = () => {
 }
 
 /*Start movingDown animation*/
-const moveDownAnimation =() =>{
+const moveDownAnimation = () => {
+  isDown = true;
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
   //box.style.animationPlayState = "paused";
@@ -85,6 +88,7 @@ const dealWithMovie = (resultArr) => {
       console.log("DATA: ", data)
       dealWithMovieTrailer(data.results[0].id);
       moveDownAnimation();
+      isDown = true;
     })
     .catch(error => console.log(error))
 }
@@ -127,6 +131,24 @@ const dealWithWeather = (resultArr) => {
     .then(response => response.json())
     .then(data => {
       console.log("TEMPO: ", JSON.stringify(data))
+      moveDownAnimation();
+      isDown = true;
     })
     .catch(error => console.log(error));
+}
+
+
+const clearResult = () => {
+  if (isDown) {
+    $('.result').empty();
+    moveUpAnimation();
+  }
+}
+const moveUpAnimation = () => {
+  console.log("estou a tentar ir para cima")
+  const box = document.getElementById("box")
+  box.style.animation = "moveUp 2s forwards";
+  
+  //box.style.animationPlayState = "paused";
+  //example 5s linear 2s infinite alternate
 }
