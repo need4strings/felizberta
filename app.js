@@ -10,6 +10,7 @@ window.onload = () => {
 const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
 const googleSearchApiKey = "AIzaSyB4goZy0s0ULExCk1IKGt3EZtuVlwZL4nw";
+const weatherApiKey = "76fa95835f831b9bfd4c896318bce593";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 
@@ -42,6 +43,9 @@ recognition.onresult = (event) => {
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
     dealWithYoutube(resultArr);
+  } else if (result.includes("tempo em")) {
+    resultArr = result.split("tempo em");
+    dealWithWeather(resultArr);
   }
 }
 
@@ -70,8 +74,21 @@ const dealWithMovie = (resultArr) => {
       utterance.rate = 1;
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
+      dealWithMovieTrailer(data.results[0].id);
     })
     .catch(error => console.log(error))
+}
+
+/* Deal with movie trailer */
+const dealWithMovieTrailer = (movieId) => {
+  fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
+    .then(response => response.json())
+    .then(data => {
+      console.log("TRAILER: ", data);
+      const trailer = data.results[0].key;
+      // we have to put this ^ in our iframe when presenting the results;
+    })
+    .catch(error => console.log(error));
 }
 
 /* Deal with Google search */
@@ -89,4 +106,17 @@ const dealWithYoutube = (resultArr) => {
   const searchFor = resultArr[1];
   console.log("VOU PROCURAR POR: ", searchFor);
   window.open("https://www.youtube.com/results?search_query=" + searchFor, '_blank');
+}
+
+/* Deal with weather request */
+const dealWithWeather = (resultArr) => {
+  console.log("TEMOS TEMPO");
+  const searchFor = resultArr[1];
+  console.log("VOU PROCURAR COMO ESTÁ O TEMPO EM: ", searchFor);
+  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchFor + "&appid=" + weatherApiKey)
+    .then(response => response.json())
+    .then(data => {
+      console.log("TEMPO: ", JSON.stringify(data))
+    })
+    .catch(error => console.log(error));
 }
