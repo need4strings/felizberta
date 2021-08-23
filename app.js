@@ -48,10 +48,8 @@ recognition.onresult = (event) => {
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
     dealWithYoutube(resultArr);
-  } else if (result.includes("tempo em")) {
-    resultArr = result.split("tempo em");
-    dealWithWeather(resultArr);
-    dealWithMovie(resultArr);
+  } else if (result.includes("tempo")) {
+    dealWithWeather();
   } else if (result.includes("cocktails")) {
     dealWithSuggestedCocktails()
       .catch(error => console.log(error));
@@ -141,20 +139,84 @@ const dealWithYoutube = (resultArr) => {
 }
 
 /* Deal with weather request */
-const dealWithWeather = (resultArr) => {
+const dealWithWeather = () => {
   console.log("TEMOS TEMPO");
-  const searchFor = resultArr[1];
-  console.log("VOU PROCURAR COMO ESTÁ O TEMPO EM: ", searchFor);
-  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchFor + "&appid=" + weatherApiKey)
-    .then(response => response.json())
-    .then(data => {
-      console.log("TEMPO: ", JSON.stringify(data))
-      moveDownAnimation();
-      isDown = true;
-    })
-    .catch(error => console.log(error));
+
+  $('div.result').append(`
+    <div class="container">
+      <div class="widget">
+        <div class="details">
+          <div class="temperature">
+            <span></span>
+          </div>
+          <div class="summary">
+            <p class="summaryText"></p>
+          </div>
+          <div class="precipitation"></div>
+          <div class="wind"></div>
+      </div>
+      <canvas class="icon"></canvas>
+    </div>`
+  );
+
+  const temperatureDescription = document.querySelector(
+    ".summaryText"
+  );
+  const temperatureDegree = document.querySelector(".temperature");
+  const precipitation = document.querySelector(".precipitation");
+  const wind = document.querySelector(".wind");
+  const temperatureSpan = document.querySelector(".temperature span");
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const long = position.coords.longitude;
+      const lat = position.coords.latitude;
+      const api = `https://api.darksky.net/forecast/eb9d28c07b047831e664f8c758a456e1/${lat},${long}`;
+
+      fetch(api)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          fadeInContent();
+          moveDownAnimation();
+          console.log(data);
+          const { temperature, summary, icon, precipIntensity, windSpeed } = data.currently;
+
+          //Set DOM Elements from the API
+          temperatureDegree.textContent = Math.floor(temperature) + "°";
+          temperatureDescription.textContent = "Today: " + summary;
+          precipitation.textContent = "Precipitation: " + precipIntensity + "%";
+          wind.textContent = "Wind: " + windSpeed + "km/h";
+
+          //Formula for Celsius
+          let celsius = (temperature - 32) * (5 / 9);
+          // Set Icon
+          setWeatherIcons(icon, document.querySelector(".icon"));
+          //Change Temperature to Celsius/Farenheit
+          temperatureDegree.addEventListener("click", () => {
+            if (temperatureSpan.textContent === "F") {
+              temperatureSpan.textContent = "C";
+              temperatureDegree.textContent = Math.floor(celsius) + "°";
+            } else {
+              temperatureSpan.textContent = "F";
+              temperatureDegree.textContent = Math.floor(temperature) + "°";
+            }
+          });
+        });
+    });
+  } else {
+    h1.textContent = "Enable Geolocation to proceed";
+  }
 }
 
+const setWeatherIcons = (icon, iconId) => {
+  console.log('SETTING ICON: ', icon);
+  const skycons = new Skycons({ color: "white" });
+  const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+  skycons.play();
+  return skycons.set(iconId, Skycons[currentIcon]);
+}
 
 const clearResult = () => {
   if (isDown) {
