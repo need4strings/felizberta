@@ -92,19 +92,25 @@ const dealWithMovie = (resultArr) => {
       console.log("DATA: ", data)
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
-      data.results.forEach(element => {
+      data.results.slice(0, 5).forEach(element => {
         // Creating elemnts for our data inside the main tag. 
         const el = document.createElement('div');
         const image = document.createElement('img');
         const text = document.createElement('h2');
-    
+        const sinopse = document.createElement('h3')
+        const releaseDate = document.createElement('h4')
+
         text.innerHTML = `${element.title}`;
         image.src = IMGPATH + element.poster_path;
+        sinopse.innerHTML = `${element.overview}`;
+        releaseDate.innerHTML = `${element.release_date}`;
+        el.appendChild(releaseDate);
         el.appendChild(image);
         el.appendChild(text);
+        el.appendChild(sinopse)
         result.appendChild(el);
       });
-      
+
 
       moveDownAnimation();
       isDown = true;
@@ -248,23 +254,18 @@ function readResponseAsBlob(response) {
 }
 
 
-async function presentMovies(fetchedArray, trailer) {
-  console.log("present this", fetchedArray)
-  console.log("now present this", trailer)
-  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-  const main = document.getElementById("main");
-  data.results.forEach(element => {
-    // Creating elemnts for our data inside the main tag. 
-    const el = document.createElement('div');
-    const image = document.createElement('img');
-    const text = document.createElement('h2');
+async function displaySixMovies(fetchedArray, trailer) {
+  let totalMoviesToPresent = 6;
+  let chosenMovies = [];
 
-    text.innerHTML = `${element.title}`;
-    image.src = IMGPATH + element.poster_path;
-    el.appendChild(image);
-    el.appendChild(text);
-    main.appendChild(el);
-  });
+  for (let i = 0; i < totalMoviesToPresent; i++) {
+   
+    chosenMovies.push(fetchedArray.movie)
+  }
+  console.log('chosen 6', chosenMovies);
+
+  return chosenMovies;
+
 
 }
 
