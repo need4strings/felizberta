@@ -97,17 +97,21 @@ const dealWithMovie = (resultArr) => {
         const el = document.createElement('div');
         const image = document.createElement('img');
         const text = document.createElement('h2');
-        const sinopse = document.createElement('h3')
-        const releaseDate = document.createElement('h4')
+        const sinopse = document.createElement('h3');
+        const releaseDate = document.createElement('h4');
+        const score = document.createElement('h5');
 
         text.innerHTML = `${element.title}`;
         image.src = IMGPATH + element.poster_path;
         sinopse.innerHTML = `${element.overview}`;
         releaseDate.innerHTML = `${element.release_date}`;
+        score.innerHTML = `${element.vote_average}`;
         el.appendChild(releaseDate);
         el.appendChild(image);
         el.appendChild(text);
         el.appendChild(sinopse)
+        el.appendChild(releaseDate);
+        el.appendChild(score)
         result.appendChild(el);
       });
 
@@ -254,47 +258,6 @@ function readResponseAsBlob(response) {
 }
 
 
-async function displaySixMovies(fetchedArray, trailer) {
-  let totalMoviesToPresent = 6;
-  let chosenMovies = [];
-
-  for (let i = 0; i < totalMoviesToPresent; i++) {
-   
-    chosenMovies.push(fetchedArray.movie)
-  }
-  console.log('chosen 6', chosenMovies);
-
-  return chosenMovies;
-
-
-}
-
-
-// API information.
-const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-
-const main = document.getElementById("main");
-
-/* call the showMovies function that requests the movie data from the Api using fetch.
- Then it puts those data in the main HTML tag by creating elments for those data. */
-
-function showMovies(url) {
-  fetch(url).then(res => res.json())
-    .then(function (data) {
-      data.results.forEach(element => {
-        // Creating elemnts for our data inside the main tag. 
-        const el = document.createElement('div');
-        const image = document.createElement('img');
-        const text = document.createElement('h2');
-
-        text.innerHTML = `${element.title}`;
-        image.src = IMGPATH + element.poster_path;
-        el.appendChild(image);
-        el.appendChild(text);
-        main.appendChild(el);
-      });
-    });
-}
 
 
 
