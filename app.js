@@ -79,6 +79,8 @@ const moveDownAnimation = () => {
 const dealWithMovie = (resultArr) => {
   console.log('TENHO FILME');
   const movie = resultArr[1];
+  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+  const result = document.getElementById("result");
   console.log("MOVIE: ", movie);
 
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
@@ -90,11 +92,23 @@ const dealWithMovie = (resultArr) => {
       console.log("DATA: ", data)
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
-      presentMovies(data, trailer);
+      data.results.forEach(element => {
+        // Creating elemnts for our data inside the main tag. 
+        const el = document.createElement('div');
+        const image = document.createElement('img');
+        const text = document.createElement('h2');
+    
+        text.innerHTML = `${element.title}`;
+        image.src = IMGPATH + element.poster_path;
+        el.appendChild(image);
+        el.appendChild(text);
+        result.appendChild(el);
+      });
+      
 
       moveDownAnimation();
       isDown = true;
-      
+
     })
     .catch(error => console.log(error))
 }
@@ -154,7 +168,7 @@ const moveUpAnimation = () => {
   console.log("estou a tentar ir para cima")
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
-  
+
   //box.style.animationPlayState = "paused";
   //example 5s linear 2s infinite alternate
 }
@@ -234,15 +248,56 @@ function readResponseAsBlob(response) {
 }
 
 
-async function presentMovies(fetchedArray, trailer) { 
+async function presentMovies(fetchedArray, trailer) {
   console.log("present this", fetchedArray)
   console.log("now present this", trailer)
- 
+  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+  const main = document.getElementById("main");
+  data.results.forEach(element => {
+    // Creating elemnts for our data inside the main tag. 
+    const el = document.createElement('div');
+    const image = document.createElement('img');
+    const text = document.createElement('h2');
+
+    text.innerHTML = `${element.title}`;
+    image.src = IMGPATH + element.poster_path;
+    el.appendChild(image);
+    el.appendChild(text);
+    main.appendChild(el);
+  });
+
+}
+
+
+// API information.
+const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+
+const main = document.getElementById("main");
+
+/* call the showMovies function that requests the movie data from the Api using fetch.
+ Then it puts those data in the main HTML tag by creating elments for those data. */
+
+function showMovies(url) {
+  fetch(url).then(res => res.json())
+    .then(function (data) {
+      data.results.forEach(element => {
+        // Creating elemnts for our data inside the main tag. 
+        const el = document.createElement('div');
+        const image = document.createElement('img');
+        const text = document.createElement('h2');
+
+        text.innerHTML = `${element.title}`;
+        image.src = IMGPATH + element.poster_path;
+        el.appendChild(image);
+        el.appendChild(text);
+        main.appendChild(el);
+      });
+    });
 }
 
 
 
-//fetchPoster('examples/kitten.jpg');
+
 
 
 
