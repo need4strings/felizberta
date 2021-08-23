@@ -1,0 +1,10 @@
+const foundMovie = "Encontrei isto para o filme";
+const bro = " meu brou";
+const searchGoogle = "Encontrei estes resultados para a pesquisa ";
+const searchYoutube = "Encontrei isto no YouTube para a pesquisa ";
+const temperatureHot = "Está calor, mantém-te hidratado e usa protetor solar";
+const temperatureMild = "És capaz de precisar de um casaquinho mais logo";
+const temperatureCold = "VAIS CONGELAAAAAAAAAAR";
+const temperatureNormal = "Que temperatura agradável, aproveita o teu dia";
+const alcohol = "Se fores conduzir tem cuidado que estes são fortes";
+const cocktails = "Eis as minhas sugestões de cocktails";

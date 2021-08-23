@@ -1,6 +1,5 @@
 window.onload = () => {
   const talkBtn = document.getElementById("talk");
-  const content = document.querySelector(".content");
 
   talkBtn.addEventListener("click", () => {
     recognition.start();
@@ -98,7 +97,7 @@ const dealWithMovie = (resultArr) => {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(data => {
-      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
+      const utterance = new SpeechSynthesisUtterance(foundMovie + movie + bro);
       utterance.rate = 1;
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
@@ -123,18 +122,20 @@ const dealWithMovieTrailer = (movieId) => {
 
 /* Deal with Google search */
 const dealWithSearch = (resultArr) => {
-  console.log('TENHO PESQUISA');
   const searchFor = resultArr[1];
-  console.log('VOU PROCURAR POR: ', searchFor);
+  const utterance = new SpeechSynthesisUtterance(searchGoogle + searchFor + bro);
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
 
   window.open("https://www.google.com/search?q=" + searchFor, '_blank');
 }
 
 /* Deal with YouTube search */
 const dealWithYoutube = (resultArr) => {
-  console.log("TEMOS YOUTUBE");
   const searchFor = resultArr[1];
-  console.log("VOU PROCURAR POR: ", searchFor);
+  const utterance = new SpeechSynthesisUtterance(searchYoutube + searchFor + bro);
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
   window.open("https://www.youtube.com/results?search_query=" + searchFor, '_blank');
 }
 
@@ -191,6 +192,25 @@ const dealWithWeather = () => {
 
           //Formula for Celsius
           let celsius = (temperature - 32) * (5 / 9);
+          console.log("CELSIUS", Math.floor(celsius));
+
+          //Felizberta Speak
+          let utterance;
+          if (celsius > 25) {
+            console.log('HEHE');
+            utterance = new SpeechSynthesisUtterance(temperatureHot);
+          } else if (celsius < 20 && celsius > 10) {
+            console.log('HOHO')
+            utterance = new SpeechSynthesisUtterance(temperatureMild);
+          } else if (celsius < 10) {
+            utterance = new SpeechSynthesisUtterance(temperatureCold);
+          } else {
+            utterance = new SpeechSynthesisUtterance(temperatureNormal);
+          }
+          console.log('UTTERANCE: ', utterance);
+          utterance.rate = 1;
+          speechSynthesis.speak(utterance);
+
           // Set Icon
           setWeatherIcons(icon, document.querySelector(".icon"));
           //Change Temperature to Celsius/Farenheit
@@ -240,9 +260,16 @@ const moveUpAnimation = () => {
 async function dealWithSuggestedCocktails() {
   let fetchedArray = await fetchCocktails();
 
-  const utterance = new SpeechSynthesisUtterance("Eis as minhas sugestões de cócketeiles meu brou");
+  let utterance = new SpeechSynthesisUtterance(cocktails + bro);
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
+
+  setTimeout(() => { 
+    utterance = new SpeechSynthesisUtterance(alcohol);
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
+  }, 1000);
+
   fadeInContent();
   moveDownAnimation();
   
