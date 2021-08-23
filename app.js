@@ -41,7 +41,6 @@ recognition.onresult = (event) => {
     }
 
     dealWithMovie(resultArr)
-      .catch(error => console.log(error));
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
     dealWithSearch(resultArr);
@@ -77,19 +76,20 @@ const moveDownAnimation = () => {
 }
 
 /* Deal with movies */
-  const dealWithMovie = async (resultArr) => {
+const dealWithMovie = (resultArr) => {
   console.log('TENHO FILME');
   const movie = resultArr[1];
   console.log("MOVIE: ", movie);
 
-  await fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
+  fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
-    .then(data => {
+    .then(async data => {
       const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
       utterance.rate = 1;
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
-      const trailer = dealWithMovieTrailer(data.results[0].id);
+      const trailer = await dealWithMovieTrailer(data.results[0].id);
+      console.log('TRAILER: ', trailer)
       presentMovies(data, trailer);
 
       moveDownAnimation();
@@ -100,13 +100,12 @@ const moveDownAnimation = () => {
 }
 
 /* Deal with movie trailer */
- const dealWithMovieTrailer = async (movieId) => {
-  fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
+const dealWithMovieTrailer = async (movieId) => {
+  return fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
       console.log("TRAILER: ", data);
-      const trailer = data.results[0].key;
-      return trailer;
+      return data.results[0].key;
       // we have to put this ^ in our iframe when presenting the results;
     })
     .catch(error => console.log(error));
