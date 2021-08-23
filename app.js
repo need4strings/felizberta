@@ -147,7 +147,7 @@ const dealWithWeather = () => {
       <div class="widget">
         <div class="details">
           <div class="temperature">
-            <span></span>
+            <div>F</div>
           </div>
           <div class="summary">
             <p class="summaryText"></p>
@@ -165,7 +165,7 @@ const dealWithWeather = () => {
   const temperatureDegree = document.querySelector(".temperature");
   const precipitation = document.querySelector(".precipitation");
   const wind = document.querySelector(".wind");
-  const temperatureSpan = document.querySelector(".temperature span");
+  const temperatureSpan = document.querySelector(".temperature div");
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {

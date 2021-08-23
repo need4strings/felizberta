@@ -194,8 +194,10 @@ body {
   position: absolute;
   border-radius: 50%;
   background: linear-gradient(160deg, rgba(#3cc0fe, 0.7) 40%, rgba(#0066ff, 0.6));
-  right: 60px;
-  top: 110px;
+  right: -40px;
+  top: 50px;
+	height: 300px;
+	width: 600px;
 }
 
 .details{
@@ -209,6 +211,10 @@ body {
   color: white;
   font-weight: 300;
   font-size: 10em;
+}
+.temperature span {
+  margin: 10px;
+  font-size: 30px;
 }
 .summary {
   color: #d2e9fa;
