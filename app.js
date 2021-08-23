@@ -40,7 +40,8 @@ recognition.onresult = (event) => {
       resultArr = result.split("movie");
     }
 
-    dealWithMovie(resultArr);
+    dealWithMovie(resultArr)
+      .catch(error => console.log(error));
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
     dealWithSearch(resultArr);
@@ -50,7 +51,6 @@ recognition.onresult = (event) => {
   } else if (result.includes("tempo em")) {
     resultArr = result.split("tempo em");
     dealWithWeather(resultArr);
-    dealWithMovie(resultArr);
   } else if (result.includes("cocktails")) {
     dealWithSuggestedCocktails()
       .catch(error => console.log(error));
@@ -77,32 +77,36 @@ const moveDownAnimation = () => {
 }
 
 /* Deal with movies */
-const dealWithMovie = (resultArr) => {
+  const dealWithMovie = async (resultArr) => {
   console.log('TENHO FILME');
   const movie = resultArr[1];
   console.log("MOVIE: ", movie);
 
-  fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
+  await fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(data => {
       const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
       utterance.rate = 1;
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
-      dealWithMovieTrailer(data.results[0].id);
+      const trailer = dealWithMovieTrailer(data.results[0].id);
+      presentMovies(data, trailer);
+
       moveDownAnimation();
       isDown = true;
+      
     })
     .catch(error => console.log(error))
 }
 
 /* Deal with movie trailer */
-const dealWithMovieTrailer = (movieId) => {
+ const dealWithMovieTrailer = async (movieId) => {
   fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
       console.log("TRAILER: ", data);
       const trailer = data.results[0].key;
+      return trailer;
       // we have to put this ^ in our iframe when presenting the results;
     })
     .catch(error => console.log(error));
@@ -224,6 +228,25 @@ function presentCocktails(fetchedArray) {
 function fetchCocktailById(id) {
 
 }
+
+
+function readResponseAsBlob(response) {
+  return response.blob();
+}
+
+
+async function presentMovies(fetchedArray, trailer) { 
+  console.log("present this", fetchedArray)
+  console.log("now present this", trailer)
+ 
+}
+
+
+
+//fetchPoster('examples/kitten.jpg');
+
+
+
 
 //jQuery reminder
 /*$('div.result').
