@@ -178,7 +178,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 98vh;
 }
 
 .widget {
@@ -223,7 +222,6 @@ body {
 }
 .summaryText {
   margin: 0;
-  margin-left: 56px;
 }
 .precipitation, .wind {
   color: #d2e9fa;
