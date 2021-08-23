@@ -16,6 +16,7 @@ const recognition = new SpeechRecognition();
 let isDown = false;
 
 recognition.onstart = () => {
+  
   clearResult();
   startAnimation();
   console.log("voice activated, you can speak");
@@ -74,6 +75,20 @@ const moveDownAnimation = () => {
   isDown = true;
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
+}
+
+const fadeOutContent = () => {
+  const result = document.getElementById("result");
+  result.style.animation = "contentFadeOut 2s forwards";
+  console.log('result', result);
+  /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
+}
+
+const fadeInContent = () => {
+  const result = document.getElementById("result");
+  result.style.animation = "contentFadeIn 2s forwards";
+  console.log('result', result);
+  /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
 /* Deal with movies */
@@ -143,7 +158,12 @@ const dealWithWeather = (resultArr) => {
 
 const clearResult = () => {
   if (isDown) {
-    $('.result').empty();
+    fadeOutContent();
+    
+    setTimeout(() => {
+      $('.result').empty()
+    }, 2000);
+
     moveUpAnimation();
   }
 }
@@ -161,7 +181,9 @@ async function dealWithSuggestedCocktails() {
   const utterance = new SpeechSynthesisUtterance("Eis as minhas sugestões de cócketeiles meu brou");
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
+  fadeInContent();
   moveDownAnimation();
+  
 
   const presented = await presentCocktails(fetchedArray);
 
@@ -184,28 +206,28 @@ async function fetchCocktails() {
 
   isDown = true;
   let json = await response.json();
-  let chosen10Cocktails = choose10Cocktails(json);
+  let chosen6Cocktails = choose6Cocktails(json);
 
-  return chosen10Cocktails;
+  return chosen6Cocktails;
 }
 
-/*function to select 10 random cocktails*/
-function choose10Cocktails(fetchedArray) {
+/*function to select 6 random cocktails*/
+function choose6Cocktails(fetchedArray) {
   let totalCocktailsToPresent = 6;
-  let chosen10Cocktails = [];
+  let chosen6Cocktails = [];
   let randomIndex;
 
   for (let i = 0; i < totalCocktailsToPresent; i++) {
     //falta verificação para evitar que possam ser indexes iguais
     randomIndex = Math.floor(Math.random() * 100);
-    chosen10Cocktails.push(fetchedArray.drinks[randomIndex]);
+    chosen6Cocktails.push(fetchedArray.drinks[randomIndex]);
   }
-  console.log('chosen 10', chosen10Cocktails);
+  console.log('chosen 6', chosen6Cocktails);
 
-  return chosen10Cocktails;
+  return chosen6Cocktails;
 }
 
-/*function to present 10 random suggested cocktails*/
+/*function to present 6 random suggested cocktails*/
 function presentCocktails(fetchedArray) {
   let cocktailName;
   let cocktailImage;
@@ -214,7 +236,7 @@ function presentCocktails(fetchedArray) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
     //$('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
-    $('div.result').append(`<div class="cocktailImage"><img id="cocktail" src="${cocktailImage}" 
+    $('div.result').append(`<div id="cocktailImage" class="cocktailImage"><img id="cocktail" src="${cocktailImage}" 
     onclick = "fetchCocktailById(${fetchedArray[i].idDrink})" style = "cursor:pointer"></div>`);
   }
 }
