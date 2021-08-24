@@ -13,7 +13,7 @@ body {
 }
 
 .box {
-	position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
 }
@@ -104,52 +104,94 @@ body {
 	margin: 21px;
 }
 
-
 .result {
-	display: grid;
-	padding: 2rem;
-	grid-gap: 0.5rem;
-	grid-template-columns: repeat(3, 1fr);
 	max-width: 1000px;
-	margin: 0 auto;
-}
-
-.result > div {
-	
+	margin: 3rem auto 0;
 	display: flex;
-	height:auto;
-	flex-direction: column;
-	align-items:center;
-	
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.cocktailImage {
+.result > div{
+	position: relative;
+	width:320px;
+	height:320px;
+	margin:0.4rem;
+	box-sizing: border-box;
+	display:flexbox;
 	animation: contentFadeIn ease 10s;
 }
 
-.cocktailImage img{
+.imgBox{
+	position:relative;
+	overflow: hidden;
+}
+
+.imgBox img{
+	width:100%;
+	transition: .9s;	
+}
+
+.result > div:hover .imgBox img{
+	/*overflow: hidden;*/
+	transform: scale(1);
+}
+
+.details{
+	position:absolute;
+	top:0;
+	left:0;
+	transform: translateX(-100%);
+	display: none;
+	content: '';
+	background: rgba(45,48,97,0.9) ;
+	height: 100%;
 	width: 100%;
- 	height: auto;
-	transition: all 0.5s ease-in;
+	transition: 1s ease;
 }
 
-.cocktailImage:hover img{
-	/*visibility: hidden;*/
-	opacity: 0.5;
-	transform: scale(0.98);
-	
+.result > div:hover .details{
+	transform: translateX(0%);
+	display:block;
 }
 
-/*.result > div:hover {
-	background-color: #222032;
-}*/
+.content{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+	color: #fff;
+	font-family: consolas;
+	text-transform: uppercase;
+	font-weight: 600;
+	opacity:0;
+	transition: 1s ease-in;
+}
 
-* {
-	padding: 2px;
+.details:hover .content{
+	opacity:1;
+}
+
+.content h2{
+	margin:0;
+	padding:0;
+	font-size: 25px;	
+}
+
+.content p{
+	margin:10px 0 0;
+	padding:0;
+	font-size: 15px;
+}
+
+@keyframes overlay{
+ 	from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 body{
-	font-family: 'Roboto', sans-serif;
+	font-family: roboto;
 }
 
 @keyframes contentFadeIn{

@@ -235,9 +235,11 @@ function presentCocktails(fetchedArray) {
   for (let i = 0; i < fetchedArray.length; i++) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
-    //$('div.result').append(`<h2 style = "color:white">${cocktailName} </h2>`);
-    $('div.result').append(`<div id="cocktailImage" class="cocktailImage"><img id="cocktail" src="${cocktailImage}" 
+   
+    $('div.result').append(`<div class="box${i}"></div>`);
+    $(`.box${i}`).append(`<div id="imgBox" class="imgBox"><img id="cocktail" src="${cocktailImage}"
     onclick = "fetchCocktailById(${fetchedArray[i].idDrink})" style = "cursor:pointer"></div>`);
+    $(`.box${i}`).append(`<div class="details"><div class ="content"><h2>${cocktailName}</h2><p>See more</p></div></div>`);
   }
 }
 
