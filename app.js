@@ -237,15 +237,62 @@ function presentCocktails(fetchedArray) {
     cocktailName = fetchedArray[i].strDrink;
    
     $('div.result').append(`<div class="box${i}"></div>`);
-    $(`.box${i}`).append(`<div id="imgBox" class="imgBox"><img id="cocktail" src="${cocktailImage}"
-    onclick = "fetchCocktailById(${fetchedArray[i].idDrink})" style = "cursor:pointer"></div>`);
-    $(`.box${i}`).append(`<div class="details"><div class ="content"><h2>${cocktailName}</h2><p>See more</p></div></div>`);
+    $(`.box${i}`).append(`<div id="imgBox" class="imgBox"><img id="cocktail" src="${cocktailImage}"></div>`);
+    $(`.box${i}`).append(`<div id ="details" class="details"><div id ="content" class ="content"><h2>${cocktailName}</h2>
+    <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink},${i})" style="cursor:pointer">See more</a></div></div>`);
   }
-}
+} 
 
 //function to fetch details after a click event on an individual cocktail image
-function fetchCocktailById(id) {
+function fetchCocktailById(id, clickedId) {
+  reduceOpacityOnImages(clickedId);
+  fadeAnimationBeforeShowingDetails();
 
+  fetch('https:thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id)
+    .then(response => response.json())
+    .then(data => {
+      console.log("DATA: ", data);
+      const drink = data.drinks[0];
+      const instructions = drink.strInstructions;
+      let ingredients = [];
+      
+      let counter = 1;
+      let hasIngredients = true;
+      //const ingredient = drink.strIngredient1 + drink.strIngredient;
+      //console.log('ingrediente 1= ', ingredient);
+
+      while(hasIngredients){
+        if (drink.strIngredient+counter.toString() !== null){
+          console.log('aquii', drink.strIngredient + counter.toString())
+
+          console.log('aquii', drink.strIngredient1)
+          const ingredient = drink.strIngredient + counter.toString() + drink.strMeasure + counter.toString();
+          console.log('ingrediente 1= ' , ingredient);
+          //ingredients.push(drink.strIngredient + counter + drink.strIngredient)
+          counter++;
+        }
+        hasIngredients=false;
+      }
+    })
+    .catch(error => console.log(error));
+  
+
+
+}
+
+function reduceOpacityOnImages(clickedId){
+   $('.imgBox img').css('opacity', '.3')
+  
+  $('.details').on('mouseleave', function () {
+    $('.imgBox img').css('opacity', '1')
+  });
+}
+
+function fadeAnimationBeforeShowingDetails(){
+  $('.content h2, a').fadeOut(2000);
+  $('.details').on('mouseleave', function () {
+    $('.content h2, a').fadeIn(0)
+  });
 }
 
 //jQuery reminder

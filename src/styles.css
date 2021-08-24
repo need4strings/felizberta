@@ -2,6 +2,8 @@ body {
 	background: #222032 !important;
 }
 
+
+/* Voice button*/
 .felizberta{
   text-align: center;
   color: white;
@@ -104,6 +106,8 @@ body {
 	margin: 21px;
 }
 
+
+/* Cocktails*/
 .result {
 	max-width: 1000px;
 	margin: 3rem auto 0;
@@ -133,8 +137,8 @@ body {
 	transition: .9s;	
 }
 
+/*not funtioning yet*/
 .result > div:hover .imgBox img{
-	/*overflow: hidden;*/
 	transform: scale(1);
 }
 
@@ -175,13 +179,14 @@ body {
 
 .content h2{
 	margin:0;
+	margin-bottom: 20px;
 	padding:0;
 	font-size: 25px;	
 }
 
-.content p{
-	margin:10px 0 0;
-	padding:0;
+.content a{
+	margin:20px 0 0;
+	padding:20px;
 	font-size: 15px;
 }
 
