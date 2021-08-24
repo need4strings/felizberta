@@ -254,25 +254,28 @@ function fetchCocktailById(id, clickedId) {
       console.log("DATA: ", data);
       const drink = data.drinks[0];
       const instructions = drink.strInstructions;
-      let ingredients = [];
-      
+      let totalIngredients = [];
       let counter = 1;
-      let hasIngredients = true;
-      //const ingredient = drink.strIngredient1 + drink.strIngredient;
-      //console.log('ingrediente 1= ', ingredient);
+      let hasIngredients = true;  
 
       while(hasIngredients){
-        if (drink.strIngredient+counter.toString() !== null){
-          console.log('aquii', drink.strIngredient + counter.toString())
+        let ingredientProperty = `strIngredient${counter}`;
 
-          console.log('aquii', drink.strIngredient1)
-          const ingredient = drink.strIngredient + counter.toString() + drink.strMeasure + counter.toString();
-          console.log('ingrediente 1= ' , ingredient);
-          //ingredients.push(drink.strIngredient + counter + drink.strIngredient)
+        if (drink[ingredientProperty] !== null && drink[ingredientProperty] !== ""){
+          //ingredientProperty = `strIngredient${counter}`;
+          let measuresProperty = `strMeasure${counter}`;
+        
+          const ingredient = drink[ingredientProperty];
+          const measure = drink[measuresProperty];
+    
+          totalIngredients.push(ingredient +" - "+ measure);
           counter++;
+          continue;
         }
         hasIngredients=false;
       }
+
+      console.log('total ingredients = ', totalIngredients);
     })
     .catch(error => console.log(error));
   
@@ -289,7 +292,7 @@ function reduceOpacityOnImages(clickedId){
 }
 
 function fadeAnimationBeforeShowingDetails(){
-  $('.content h2, a').fadeOut(2000);
+  $('.content h2, a').fadeOut(1000);
   $('.details').on('mouseleave', function () {
     $('.content h2, a').fadeIn(0)
   });
