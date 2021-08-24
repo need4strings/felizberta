@@ -93,28 +93,25 @@ const dealWithMovie = (resultArr) => {
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
       data.results.slice(0, 5).forEach(element => {
-        // Creating elemnts for our data inside the main tag. 
-        const el = document.createElement('div');
-        const movieInfo = document.createElement('div');
-        el.appendChild(movieInfo);    
-        const image = document.createElement('img');
-        const text = document.createElement('h2');
-        const sinopse = document.createElement('h3');
-        const releaseDate = document.createElement('h4');
-        const score = document.createElement('h5');
 
-        text.innerHTML = `${element.title}`;
-        image.src = IMGPATH + element.poster_path;
-        sinopse.innerHTML = `${element.overview}`;
-        releaseDate.innerHTML = `${element.release_date}`;
-        score.innerHTML = `${element.vote_average}`;
-        el.appendChild(releaseDate);
-        el.appendChild(image);
-        el.appendChild(text);
-        el.appendChild(sinopse)
-        el.appendChild(releaseDate);
-        el.appendChild(score)
-        result.appendChild(el);
+        $('div.result').append(`
+
+        <div class="moviesPresentation"
+        <div class="movies"
+             <div class = "poster">
+             <img id="poster" src="${IMGPATH + element.poster_path}">
+             <h5>${element.title}</h5></div>
+        </div>
+        </div>`)
+
+       
+
+
+
+
+
+        // Creating elemnts for our data inside the main tag. 
+
       });
 
 
