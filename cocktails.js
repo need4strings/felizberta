@@ -1,8 +1,8 @@
 /* Deal with a request for suggested cocktails */
-async function dealWithSuggestedCocktails() {
-  let fetchedArray = await fetchCocktails();
+async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation) {
+  let fetchedArray = await fetchCocktails(isDown);
 
-  let utterance = new SpeechSynthesisUtterance(cocktails + bro);
+  let utterance = new SpeechSynthesisUtterance(strings.cocktails + strings.bro);
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
 
@@ -27,7 +27,7 @@ async function dealWithSuggestedCocktails() {
 }
 
 /*fetch function for suggested cocktails */
-async function fetchCocktails() {
+async function fetchCocktails(isDown) {
   let myRequest = new Request('https:thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
   let response = await fetch(myRequest);
 
@@ -76,3 +76,5 @@ function presentCocktails(fetchedArray) {
 function fetchCocktailById(id) {
 
 }
+
+export default dealWithSuggestedCocktails;

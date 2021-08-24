@@ -1,17 +1,18 @@
 /* Deal with movies */
-const dealWithMovie = (resultArr) => {
+const dealWithMovie = (resultArr, apiKeys, strings, moveDownAnimation, isDown) => {
   console.log('TENHO FILME');
   const movie = resultArr[1];
   console.log("MOVIE: ", movie);
+  const tmdbApiKey = apiKeys.tmdbApiKey;
 
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(data => {
-      const utterance = new SpeechSynthesisUtterance(foundMovie + movie + bro);
+      const utterance = new SpeechSynthesisUtterance(strings.foundMovie + movie + strings.bro);
       utterance.rate = 1;
       speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
-      dealWithMovieTrailer(data.results[0].id);
+      dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
       moveDownAnimation();
       isDown = true;
     })
@@ -19,7 +20,7 @@ const dealWithMovie = (resultArr) => {
 }
 
 /* Deal with movie trailer */
-const dealWithMovieTrailer = (movieId) => {
+const dealWithMovieTrailer = (movieId, tmdbApiKey) => {
   fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
@@ -29,3 +30,5 @@ const dealWithMovieTrailer = (movieId) => {
     })
     .catch(error => console.log(error));
 }
+
+export default dealWithMovie;

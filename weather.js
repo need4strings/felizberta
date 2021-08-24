@@ -1,5 +1,5 @@
 /* Deal with weather request */
-const dealWithWeather = () => {
+const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
   console.log("TEMOS TEMPO");
 
   $('div.result').append(`
@@ -57,14 +57,14 @@ const dealWithWeather = () => {
           let utterance;
           if (celsius > 25) {
             console.log('HEHE');
-            utterance = new SpeechSynthesisUtterance(temperatureHot);
+            utterance = new SpeechSynthesisUtterance(strings.temperatureHot);
           } else if (celsius < 20 && celsius > 10) {
             console.log('HOHO')
-            utterance = new SpeechSynthesisUtterance(temperatureMild);
+            utterance = new SpeechSynthesisUtterance(strings.temperatureMild);
           } else if (celsius < 10) {
-            utterance = new SpeechSynthesisUtterance(temperatureCold);
+            utterance = new SpeechSynthesisUtterance(strings.temperatureCold);
           } else {
-            utterance = new SpeechSynthesisUtterance(temperatureNormal);
+            utterance = new SpeechSynthesisUtterance(strings.temperatureNormal);
           }
           console.log('UTTERANCE: ', utterance);
           utterance.rate = 1;
@@ -96,3 +96,5 @@ const setWeatherIcons = (icon, iconId) => {
   skycons.play();
   return skycons.set(iconId, Skycons[currentIcon]);
 }
+
+export default dealWithWeather;

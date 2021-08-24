@@ -1,10 +1,14 @@
-const foundMovie = "Encontrei isto para o filme";
-const bro = " meu brou";
-const searchGoogle = "Encontrei estes resultados para a pesquisa ";
-const searchYoutube = "Encontrei isto no YouTube para a pesquisa ";
-const temperatureHot = "Está calor, mantém-te hidratado e usa protetor solar";
-const temperatureMild = "És capaz de precisar de um casaquinho mais logo";
-const temperatureCold = "VAIS CONGELAAAAAAAAAAR";
-const temperatureNormal = "Que temperatura agradável, aproveita o teu dia";
-const alcohol = "Se fores conduzir tem cuidado que estes são fortes";
-const cocktails = "Eis as minhas sugestões de cocktails";
+const stringsPt = {
+  foundMovie: "Encontrei isto para o filme",
+  bro: " meu brou",
+  searchGoogle: "Encontrei estes resultados para a pesquisa ",
+  searchYoutube: "Encontrei isto no YouTube para a pesquisa ",
+  temperatureHot: "Está calor, mantém-te hidratado e usa protetor solar",
+  temperatureMild: "És capaz de precisar de um casaquinho mais logo",
+  temperatureCold: "VAIS CONGELAAAAAAAAAAR",
+  temperatureNormal: "Que temperatura agradável, aproveita o teu dia",
+  alcohol: "Se fores conduzir tem cuidado que estes são fortes",
+  cocktails: "Eis as minhas sugestões de cocktails"
+}
+
+export default stringsPt;

@@ -1,3 +1,12 @@
+import LandingPage from './landingPage.js';
+import Google from './google.js';
+import Strings from './strings.js';
+import Youtube from './youtube.js';
+import Movies from './movies.js';
+import ApiKeys from './apiKeys.js';
+import Cocktails from './cocktails.js';
+import Weather from './weather.js';
+
 window.onload = () => {
   const talkBtn = document.getElementById("talk");
 
@@ -6,13 +15,10 @@ window.onload = () => {
   });
   moveDownAnimation();
   fadeInContent();
-  landingPageView();
+  LandingPage();
 }
 
 const userLanguage = window.navigator.userLanguage || window.navigator.language;
-const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
-const googleSearchApiKey = "AIzaSyB4goZy0s0ULExCk1IKGt3EZtuVlwZL4nw";
-const weatherApiKey = "76fa95835f831b9bfd4c896318bce593";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 let isDown = false;
@@ -42,17 +48,17 @@ recognition.onresult = (event) => {
       resultArr = result.split("movie");
     }
 
-    dealWithMovie(resultArr);
+    Movies(resultArr, ApiKeys, Strings, moveDownAnimation, isDown);
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
-    dealWithSearch(resultArr);
+    Google(resultArr);
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
-    dealWithYoutube(resultArr);
+    Youtube(resultArr, Strings);
   } else if (result.includes("tempo")) {
-    dealWithWeather();
+    Weather(fadeInContent, moveDownAnimation, Strings);
   } else if (result.includes("cocktails")) {
-    dealWithSuggestedCocktails()
+    Cocktails(isDown, Strings, fadeInContent, moveDownAnimation)
       .catch(error => console.log(error));
   }
 }
