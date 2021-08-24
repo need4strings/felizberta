@@ -241,3 +241,28 @@ body {
 .wind {
   margin-top: 4px;
 }
+
+.homePageContainer {
+  margin: 200px auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.imgContainer {
+  width: 50%;
+  margin-right: 200px;
+  margin-left: 200px;
+}
+
+.homePageImg {
+  display: block;
+  height: 31.25rem;
+  width: 31.25rem;
+  border-radius: 10%;
+}
+
+.textContainer {
+  color: white;
+}

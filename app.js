@@ -5,6 +5,8 @@ window.onload = () => {
     recognition.start();
   });
   moveDownAnimation();
+  fadeInContent();
+  landingPageView();
 }
 
 const userLanguage = window.navigator.userLanguage || window.navigator.language;
@@ -76,13 +78,17 @@ const moveDownAnimation = () => {
 
 const fadeOutContent = () => {
   const result = document.getElementById("result");
+  const homePage = document.getElementById("homePage");
   result.style.animation = "contentFadeOut 2s forwards";
+  homePage.style.animation = "contentFadeOut 2s forwards";
   console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
 const fadeInContent = () => {
   const result = document.getElementById("result");
+  const homePage = document.getElementById("homePage");
+  homePage.style.animation = "contentFadeIn 2s forwards"
   result.style.animation = "contentFadeIn 2s forwards";
   console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
@@ -94,6 +100,7 @@ const clearResult = () => {
     
     setTimeout(() => {
       $('.result').empty()
+      $('.homePage').empty()
     }, 2000);
 
     moveUpAnimation();

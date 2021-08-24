@@ -7,3 +7,5 @@ const dealWithSearch = (resultArr) => {
 
   window.open("https://www.google.com/search?q=" + searchFor, '_blank');
 }
+
+export default dealWithSearch;
