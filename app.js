@@ -95,6 +95,8 @@ const dealWithMovie = (resultArr) => {
       data.results.slice(0, 5).forEach(element => {
         // Creating elemnts for our data inside the main tag. 
         const el = document.createElement('div');
+        const movieInfo = document.createElement('div');
+        el.appendChild(movieInfo);    
         const image = document.createElement('img');
         const text = document.createElement('h2');
         const sinopse = document.createElement('h3');
