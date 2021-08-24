@@ -1,3 +1,5 @@
+import Strings from "./strings.js";
+
 const landingPageView = () => {
 
   $('div.homePage').append(`
@@ -17,19 +19,39 @@ const landingPageView = () => {
          meatloaf doner brisket. Spare ribs frankfurter beef 
          ribs buffalo, corned beef meatball ground round 
          sirloin picanha.</p>
-         <i class="fas fa-video fa-5x" onclick="${$("#button").bind("click", iconClick)}"></i>
-         <i class="fas fa-cocktail fa-5x"></i>
-         <i class="fas fa-cloud-sun fa-5x"></i>
-         <i class="fab fa-google fa-5x"></i>
-         <i class="fab fa-youtube fa-5x"></i>
-         <i class="fas fa-plus fa-5x"></i>
+         <i id="icon" class="fas fa-video fa-5x"></i>
+         <i id="icon" class="fas fa-cocktail fa-5x"></i>
+         <i id="icon" class="fas fa-cloud-sun fa-5x"></i>
+         <i id="icon" class="fab fa-google fa-5x"></i>
+         <i id="icon" class="fab fa-youtube fa-5x"></i>
+         <i id="icon" class="fas fa-plus fa-5x"></i>
       </div>
     </div>`
   );
+
+  $('.fas').click(iconClick);
+  $('.fab').click(iconClick);
 }
 
-const iconClick = function(e){
-  console.log("Click");
+const iconClick = (event) => {
+  const className = event.target.className;
+  let utterance;
+
+  if (className.includes('video')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_movies);
+  } else if(className.includes('cocktail')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_cocktails);
+  } else if(className.includes('cloud-sun')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_weather);
+  } else if (className.includes('google')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_google);
+  } else if (className.includes('youtube')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_youtube);
+  } else if(className.includes('plus')) {
+    utterance = new SpeechSynthesisUtterance(Strings.explain_more);
+  }
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
 }
 
 export default landingPageView;

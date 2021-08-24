@@ -1,5 +1,6 @@
 body {
 	background: #eeeded !important;
+  margin: 0 !important;
 }
 
 .felizberta{
@@ -143,10 +144,6 @@ body {
 	background-color: #222032;
 }*/
 
-* {
-	padding: 2px;
-}
-
 body{
 	font-family: 'Roboto', sans-serif;
 }
@@ -252,7 +249,6 @@ body {
 .imgContainer {
   width: 50%;
   margin-right: 200px;
-  margin-left: 200px;
 }
 
 .homePageImg {

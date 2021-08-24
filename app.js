@@ -15,7 +15,7 @@ window.onload = () => {
   });
   moveDownAnimation();
   fadeInContent();
-  LandingPage();
+  LandingPage(Strings);
 }
 
 const userLanguage = window.navigator.userLanguage || window.navigator.language;
