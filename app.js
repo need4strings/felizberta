@@ -16,7 +16,7 @@ const recognition = new SpeechRecognition();
 let isDown = false;
 
 recognition.onstart = () => {
-  
+
   clearResult();
   startAnimation();
   console.log("voice activated, you can speak");
@@ -159,7 +159,7 @@ const dealWithWeather = (resultArr) => {
 const clearResult = () => {
   if (isDown) {
     fadeOutContent();
-    
+
     setTimeout(() => {
       $('.result').empty()
     }, 2000);
@@ -183,7 +183,7 @@ async function dealWithSuggestedCocktails() {
   speechSynthesis.speak(utterance);
   fadeInContent();
   moveDownAnimation();
-  
+
 
   const presented = await presentCocktails(fetchedArray);
 
@@ -235,16 +235,17 @@ function presentCocktails(fetchedArray) {
   for (let i = 0; i < fetchedArray.length; i++) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
-   
+
     $('div.result').append(`<div class="box${i}"></div>`);
     $(`.box${i}`).append(`<div id="imgBox" class="imgBox"><img id="cocktail" src="${cocktailImage}"></div>`);
     $(`.box${i}`).append(`<div id ="details" class="details"><div id ="content" class ="content"><h2>${cocktailName}</h2>
     <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink},${i})" style="cursor:pointer">See more</a></div></div>`);
   }
-} 
+}
 
 //function to fetch details after a click event on an individual cocktail image
 function fetchCocktailById(id, clickedId) {
+  clearDetails();
   reduceOpacityOnImages(clickedId);
   fadeAnimationBeforeShowingDetails();
 
@@ -256,46 +257,69 @@ function fetchCocktailById(id, clickedId) {
       const instructions = drink.strInstructions;
       let totalIngredients = [];
       let counter = 1;
-      let hasIngredients = true;  
+      let hasIngredients = true;
 
-      while(hasIngredients){
+      while (hasIngredients) {
         let ingredientProperty = `strIngredient${counter}`;
 
-        if (drink[ingredientProperty] !== null && drink[ingredientProperty] !== ""){
+        if (drink[ingredientProperty] !== null && drink[ingredientProperty] !== "") {
           //ingredientProperty = `strIngredient${counter}`;
           let measuresProperty = `strMeasure${counter}`;
-        
+
           const ingredient = drink[ingredientProperty];
           const measure = drink[measuresProperty];
-    
-          totalIngredients.push(ingredient +" - "+ measure);
+
+          totalIngredients.push(ingredient + " - " + measure);
           counter++;
           continue;
         }
-        hasIngredients=false;
+        hasIngredients = false;
       }
 
       console.log('total ingredients = ', totalIngredients);
+
+      $(`.box${clickedId} .details .content`).append(`<p id="ingredientsTitle">Ingredients</p>
+                                                      <ul></ul>`);
+
+      for (let ingredient in totalIngredients) {
+        $(`.box${clickedId} .details .content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
+      }
+
+      $(`.box${clickedId} .details .content`).append(`<p id="instructionsTitle">Instructions</p>
+                                                      <p id="instructions">${instructions}</p>`);
+
+
     })
     .catch(error => console.log(error));
-  
+
 
 
 }
 
-function reduceOpacityOnImages(clickedId){
-   $('.imgBox img').css('opacity', '.3')
-  
+function reduceOpacityOnImages(clickedId) {
+  $('.imgBox img').css('opacity', '.3')
+
   $('.details').on('mouseleave', function () {
     $('.imgBox img').css('opacity', '1')
   });
 }
 
-function fadeAnimationBeforeShowingDetails(){
+function fadeAnimationBeforeShowingDetails() {
   $('.content h2, a').fadeOut(1000);
+  $('.content h2, a').css("display", "none");
   $('.details').on('mouseleave', function () {
     $('.content h2, a').fadeIn(0)
   });
+
+}
+
+function clearDetails() {
+  $('.details').on('mouseenter', function () {
+    $('.content p, ul').fadeOut(0)
+  });
+  /* $('.details').on('mouseleave', function () {
+     $('.content p').empty()
+   });*/
 }
 
 //jQuery reminder

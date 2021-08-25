@@ -153,6 +153,7 @@ body {
 	height: 100%;
 	width: 100%;
 	transition: 1s ease;
+	overflow:auto;
 }
 
 .result > div:hover .details{
@@ -165,6 +166,7 @@ body {
 	top: 50%;
 	transform: translateY(-50%);
 	text-align: center;
+	padding:20px 20px;
 	color: #fff;
 	font-family: consolas;
 	text-transform: uppercase;
@@ -189,6 +191,26 @@ body {
 	padding:20px;
 	font-size: 15px;
 }
+
+.content p{
+
+	margin:10px 0 0;
+	padding:10px;
+	font-size: 15px;
+}
+
+.content #instructions{
+	font-size: 10px;
+}
+
+.content ul{
+	list-style-type: none;
+	padding:10px;
+	font-size: 10px;
+	margin-bottom: 20px;
+}
+
+
 
 @keyframes overlay{
  	from { opacity: 0; }
