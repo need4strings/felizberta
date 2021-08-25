@@ -10,15 +10,6 @@ import Commands from './commands.js';
 
 window.onload = () => {
   const talkBtn = document.getElementById("talk");
-  const userLanguage = window.navigator.userLanguage || window.navigator.language;
-  console.log('USER LANGUAGE', userLanguage);
-  let strings;
-
-  if (userLanguage === "pt-PT") {
-    strings = Strings.stringsPt;
-  } else {
-    strings = Strings.stringsEn;
-  }
 
   talkBtn.addEventListener("click", () => {
     recognition.start();
@@ -27,6 +18,16 @@ window.onload = () => {
   fadeInContent();
   LandingPage(Strings);
 }
+
+const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  console.log('USER LANGUAGE', userLanguage);
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -44,7 +45,6 @@ recognition.onresult = (event) => {
   stopAnimation();
 
   console.log('EVENNT: ', event);
-  console.log('USER LANGUAGE: ', userLanguage);
   const result = event.results[0][0].transcript;
   console.log("TU DISSESTE: ", result);
   let resultArr;
@@ -57,20 +57,20 @@ recognition.onresult = (event) => {
       resultArr = result.split("movie");
     }
 
-    Movies(resultArr, ApiKeys, Strings, moveDownAnimation, isDown);
+    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown);
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
-    Google(resultArr);
+    Google(resultArr, strings);
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
-    Youtube(resultArr, Strings);
+    Youtube(resultArr, strings);
   } else if (result.includes("tempo")) {
-    Weather(fadeInContent, moveDownAnimation, Strings);
+    Weather(fadeInContent, moveDownAnimation, strings);
   } else if (result.includes("cocktails")) {
-    Cocktails(isDown, Strings, fadeInContent, moveDownAnimation)
+    Cocktails(isDown, strings, fadeInContent, moveDownAnimation)
       .catch(error => console.log(error));
   } else if (result.includes("comandos")) {
-    Commands(Strings);
+    Commands(strings, fadeInContent, moveDownAnimation);
   }
 }
 
@@ -96,8 +96,10 @@ const moveDownAnimation = () => {
 const fadeOutContent = () => {
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
+  const commandsPage = document.getElementById("commandsPage");
   result.style.animation = "contentFadeOut 2s forwards";
   homePage.style.animation = "contentFadeOut 2s forwards";
+  commandsPage.style.animation = "contentFadeOut 2s forwards";
   console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
@@ -105,7 +107,9 @@ const fadeOutContent = () => {
 const fadeInContent = () => {
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
-  homePage.style.animation = "contentFadeIn 2s forwards"
+  const commandsPage = document.getElementById("commandsPage");
+  commandsPage.style.animation = "contentFadeIn 2s forwards";
+  homePage.style.animation = "contentFadeIn 2s forwards";
   result.style.animation = "contentFadeIn 2s forwards";
   console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
@@ -118,6 +122,7 @@ const clearResult = () => {
     setTimeout(() => {
       $('.result').empty()
       $('.homePage').empty()
+      $('.commandsPage').empty()
     }, 2000);
 
     moveUpAnimation();

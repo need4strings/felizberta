@@ -1,6 +1,7 @@
 body {
 	background: #f1f1f1 !important;
   margin: 0 !important;
+  overflow-y: hidden;
 }
 
 * {
@@ -317,4 +318,46 @@ body {
 
 .fas:hover, .fab:hover {
   transform: rotate(360deg);
+}
+
+.commandsPageContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.commandsImgContainer {
+  width: 50%;
+}
+
+.commandsImg {
+  display: block;
+  width: 70rem;
+  border-radius: 10%;
+  margin-top: 300px;
+  opacity: 0.5;
+}
+
+.commandsTextContainer {
+  color: black;
+  text-align: center;
+}
+
+.commandsList {
+  list-style: none;
+  padding: 0;
+  text-align: initial;
+}
+.commandsListItem {
+  padding-left: 1.3em;
+}
+.commandsListItem:before {
+  content: "\f00c"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em; /* same as padding-left set on li */
+  width: 1.3em; /* same as padding-left set on li */
+  font-size: large;
 }
