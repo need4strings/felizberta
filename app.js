@@ -94,30 +94,25 @@ const dealWithMovie = (resultArr) => {
       console.log('TRAILER: ', trailer)
       data.results.slice(0, 5).forEach(element => {
 
-        $('div.result').append(`
-
-        <div class="moviesPresentation"
-        <div class="movies"
-             <div class = "poster">
-             <img id="poster" src="${IMGPATH + element.poster_path}">
-             <h5>${element.title}</h5></div>
-        </div>
-        </div>`)
-
-       
-
-
-
-
-
-        // Creating elemnts for our data inside the main tag. 
-
+        const {title, poster_path, vote_average, id} = movie;
+        const movieEl = document.createElement('div');
+        movieEl.classList.add('movie');
+        movieEl.innerHTML = `   
+        <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <br/>
+                <span class="${getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="knowMore">
+                <br/> 
+                <button class="know-more" id="${id}">Know More</button
+            </div>
+        `
+        result.appendChild(movieEl);
       });
-
-
       moveDownAnimation();
-      isDown = true;
-
+        isDown = true;
     })
     .catch(error => console.log(error))
 }
