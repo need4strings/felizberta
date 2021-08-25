@@ -94,8 +94,8 @@ const dealWithMovie = (resultArr) => {
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
       data.results.slice(0, 5).forEach(movie => {
-
-        const {title, poster_path, vote_average, id} = movie;
+        const {title, poster_path, vote_average, id} = movie; 
+        console.log(movie + "isto é o filme")
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.innerHTML = `   
@@ -107,9 +107,10 @@ const dealWithMovie = (resultArr) => {
             </div>
             <div class="knowMore">
                 <br/> 
-                <button class="know-more" id="${id}">Know More</button
+                <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
             </div>
         `
+        console.log(data.results.id + "este é o iddddd")
         result.appendChild(movieEl);
       });
       moveDownAnimation();
@@ -140,6 +141,48 @@ function getColor(vote) {
   }
 }
 
+
+function movieSelected(id){
+  console.log("entrei aquiiiiiiiiiiii")
+  console.log(id)
+  clearResult();
+    fetch("https://api.themoviedb.org/3/movie/" + id + "api_key=" + tmdbApiKey)
+    console.log("tb entrei aqui!!!!!!!!!!")
+    .then(response => response.json())
+    .then(async data => {
+      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+      console.log("DATA: ", data)
+      const trailer = await dealWithMovieTrailer(data.results[0].id);
+      console.log('TRAILER: ', trailer)
+      data.results.slice(0, 5).forEach(movie => {
+
+        const {title, poster_path, vote_average, id} = movie;
+        const movieEl = document.createElement('div');
+        movieEl.classList.add('movie');
+        movieEl.innerHTML = `   
+        <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <br/>
+                <span class="${getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="knowMore">
+                <br/> 
+                <button class="know-more" id="${id}">Know More</button
+            </div>
+        `
+        result.appendChild(movieEl);
+      });
+      moveDownAnimation();
+        isDown = true;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+    
 /* Deal with Google search */
 const dealWithSearch = (resultArr) => {
   console.log('TENHO PESQUISA');
