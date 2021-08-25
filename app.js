@@ -110,7 +110,7 @@ const dealWithMovie = (resultArr) => {
                 <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
             </div>
         `
-        console.log(data.results.id + "este é o iddddd")
+       
         result.appendChild(movieEl);
       });
       moveDownAnimation();
@@ -140,41 +140,61 @@ function getColor(vote) {
       return 'red'
   }
 }
+const movieSelected = async (id) => {
+  clearResult();
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
+    .then(response => response.json())
+    .then(data => {
+      let movie = response.data;
 
+      let output =`
+        <div class="row">
+          <div class="col-md-4">
+            <img src="${movie.Poster}" class="thumbnail">
+          </div>
+          <div class="col-md-8">
+            <h2>${movie.Title}</h2>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Genre:</strong> ${movie.Genre}</li>
+              <li class="list-group-item"><strong>Released:</strong> ${movie.Released}</li>
+              <li class="list-group-item"><strong>Rated:</strong> ${movie.Rated}</li>
+              <li class="list-group-item"><strong>IMDB Rating:</strong> ${movie.imdbRating}</li>
+              <li class="list-group-item"><strong>Director:</strong> ${movie.Director}</li>
+              <li class="list-group-item"><strong>Writer:</strong> ${movie.Writer}</li>
+              <li class="list-group-item"><strong>Actors:</strong> ${movie.Actors}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="well">
+            <h3>Plot</h3>
+            ${movie.Plot}
+            <hr>
+            <a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
+            <a href="index.html" class="btn btn-default">Go Back To Search</a>
+          </div>
+        </div>
+      `;
+      console.log("esta é a data que eu quero: ", data);
+      return data.results;
+  
+      // we have to put this ^ in our iframe when presenting the results;
+    })
+    .catch(error => console.log(error));
+}
 
+ /*
 function movieSelected(id){
   console.log("entrei aquiiiiiiiiiiii")
   console.log(id)
   clearResult();
-    fetch("https://api.themoviedb.org/3/movie/" + id + "api_key=" + tmdbApiKey)
+   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     console.log("tb entrei aqui!!!!!!!!!!")
+    console.log("novo iddd" + id)
     .then(response => response.json())
-    .then(async data => {
-      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
-      utterance.rate = 1;
-      speechSynthesis.speak(utterance);
-      console.log("DATA: ", data)
-      const trailer = await dealWithMovieTrailer(data.results[0].id);
-      console.log('TRAILER: ', trailer)
-      data.results.slice(0, 5).forEach(movie => {
-
-        const {title, poster_path, vote_average, id} = movie;
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movie');
-        movieEl.innerHTML = `   
-        <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
-            <div class="movie-info">
-                <h3>${title}</h3>
-                <br/>
-                <span class="${getColor(vote_average)}">${vote_average}</span>
-            </div>
-            <div class="knowMore">
-                <br/> 
-                <button class="know-more" id="${id}">Know More</button
-            </div>
-        `
-        result.appendChild(movieEl);
-      });
+    .then(data => {
+      console.log("vou mostrar " + data)
+     
       moveDownAnimation();
         isDown = true;
       })
