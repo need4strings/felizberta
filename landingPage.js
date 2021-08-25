@@ -8,7 +8,8 @@ const landingPageView = () => {
         <img class="homePageImg" src="./felizberta.png" />
       </div>
       <div class="textContainer">
-        <h1 class="homePageTitle">Felizberta, a nova App de voz!</h1>
+        <h1 class="homePageTitle">Felizberta</h1>
+        <h2 class="homePageSubtitle">A nova App de voz!</h2>
         <br>
         <p class="appDesc">Bacon ipsum dolor amet doner pig jerky cow brisket, boudin pastrami drumstick ham
          hock pancetta tenderloin. Pork chop t-bone pig meatball kevin porchetta rump boudin buffalo. Spare ribs

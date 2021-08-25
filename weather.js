@@ -14,6 +14,9 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
           </div>
           <div class="precipitation"></div>
           <div class="wind"></div>
+          <div class="summaryTomorrow">
+            <p class="summaryTomorrowText"></p>
+          </div>
       </div>
       <canvas class="icon"></canvas>
     </div>`
@@ -26,6 +29,7 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
   const precipitation = document.querySelector(".precipitation");
   const wind = document.querySelector(".wind");
   const temperatureSpan = document.querySelector(".temperature div");
+  const temperatureTomorrowDescription = document.querySelector(".summaryTomorrowText");
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -40,7 +44,8 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
         .then(data => {
           fadeInContent();
           moveDownAnimation();
-          console.log(data);
+          console.log("ISTOOOOOO: ", data);
+          console.log("THISSSSSSSSSSSS: ", temperatureTomorrowDescription);
           const { temperature, summary, icon, precipIntensity, windSpeed } = data.currently;
 
           //Set DOM Elements from the API
@@ -48,6 +53,7 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
           temperatureDescription.textContent = "Today: " + summary;
           precipitation.textContent = "Precipitation: " + precipIntensity + "%";
           wind.textContent = "Wind: " + windSpeed + "km/h";
+          temperatureTomorrowDescription.textContent = "Tomorrow: " + data.daily.data[1].summary;
 
           //Formula for Celsius
           let celsius = (temperature - 32) * (5 / 9);
@@ -59,7 +65,6 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
             console.log('HEHE');
             utterance = new SpeechSynthesisUtterance(strings.temperatureHot);
           } else if (celsius < 20 && celsius > 10) {
-            console.log('HOHO')
             utterance = new SpeechSynthesisUtterance(strings.temperatureMild);
           } else if (celsius < 10) {
             utterance = new SpeechSynthesisUtterance(strings.temperatureCold);

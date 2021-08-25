@@ -7,7 +7,7 @@ async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDo
   speechSynthesis.speak(utterance);
 
   setTimeout(() => { 
-    utterance = new SpeechSynthesisUtterance(alcohol);
+    utterance = new SpeechSynthesisUtterance(strings.alcohol);
     utterance.rate = 1;
     speechSynthesis.speak(utterance);
   }, 1000);

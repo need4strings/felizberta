@@ -1,6 +1,10 @@
 body {
-	background: #eeeded !important;
+	background: #f1f1f1 !important;
   margin: 0 !important;
+}
+
+* {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .felizberta{
@@ -179,7 +183,7 @@ body {
 .widget {
   background: linear-gradient(to bottom right, #3cc0fe 20%, #0066ff);
   width: 900px;
-  height: 400px;
+  height: auto;
   border-radius: 6px;
   box-shadow: 0px 60px 80px -20px rgba(#27a5fd, 0.4);
   position: relative;
@@ -222,9 +226,21 @@ body {
   border-bottom: 2px solid #9cd0ff;
   margin-left: 8px;
 }
+
+.summaryTomorrow {
+  color: #d2e9fa;
+  font-size: 1.1em;
+  font-weight: 200;
+  width: auto;
+  margin-top: -16px;
+  padding-bottom: 16px;
+  margin-left: 8px;
+}
+
 .summaryText {
   margin: 0;
 }
+
 .precipitation, .wind {
   color: #d2e9fa;
   font-size: 1.6em;
@@ -236,14 +252,36 @@ body {
 }
 .wind {
   margin-top: 4px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #9cd0ff;
+  width: 260px;
+  margin-bottom: 10px;
 }
 
 .homePageContainer {
-  margin: 200px auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+}
+
+.homePageTitle {
+  font-size: 85px;
+  margin-top: 0px;
+  margin-bottom: 80px;
+}
+
+.homePageSubtitle {
+  font-size: 40px;
+  letter-spacing: 3px;
+  margin-bottom: 0px;
+}
+
+.appDesc {
+  margin-bottom: 60px;
+  margin-top: 0px;
+  margin-right: 170px;
 }
 
 .imgContainer {
@@ -253,9 +291,15 @@ body {
 
 .homePageImg {
   display: block;
-  height: 31.25rem;
-  width: 31.25rem;
+  height: 41.25rem;
+  width: 41.25rem;
   border-radius: 10%;
+  margin-top: 130px;
+}
+
+.homePageImg:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in-out;
 }
 
 .textContainer {
