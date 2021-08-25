@@ -6,9 +6,19 @@ import Movies from './movies.js';
 import ApiKeys from './apiKeys.js';
 import Cocktails from './cocktails.js';
 import Weather from './weather.js';
+import Commands from './commands.js';
 
 window.onload = () => {
   const talkBtn = document.getElementById("talk");
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  console.log('USER LANGUAGE', userLanguage);
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
 
   talkBtn.addEventListener("click", () => {
     recognition.start();
@@ -18,7 +28,6 @@ window.onload = () => {
   LandingPage(Strings);
 }
 
-const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 let isDown = false;
@@ -60,6 +69,8 @@ recognition.onresult = (event) => {
   } else if (result.includes("cocktails")) {
     Cocktails(isDown, Strings, fadeInContent, moveDownAnimation)
       .catch(error => console.log(error));
+  } else if (result.includes("comandos")) {
+    Commands(Strings);
   }
 }
 

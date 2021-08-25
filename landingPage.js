@@ -35,21 +35,32 @@ const landingPageView = () => {
 }
 
 const iconClick = (event) => {
+
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  console.log('USER LANGUAGE', userLanguage);
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
+
   const className = event.target.className;
   let utterance;
 
   if (className.includes('video')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_movies);
+    utterance = new SpeechSynthesisUtterance(strings.explain_movies);
   } else if(className.includes('cocktail')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_cocktails);
+    utterance = new SpeechSynthesisUtterance(strings.explain_cocktails);
   } else if(className.includes('cloud-sun')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_weather);
+    utterance = new SpeechSynthesisUtterance(strings.explain_weather);
   } else if (className.includes('google')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_google);
+    utterance = new SpeechSynthesisUtterance(strings.explain_google);
   } else if (className.includes('youtube')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_youtube);
+    utterance = new SpeechSynthesisUtterance(strings.explain_youtube);
   } else if(className.includes('plus')) {
-    utterance = new SpeechSynthesisUtterance(Strings.explain_more);
+    utterance = new SpeechSynthesisUtterance(strings.explain_more);
   }
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
