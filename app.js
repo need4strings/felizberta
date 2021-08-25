@@ -11,6 +11,7 @@ const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
 const googleSearchApiKey = "AIzaSyB4goZy0s0ULExCk1IKGt3EZtuVlwZL4nw";
 const weatherApiKey = "76fa95835f831b9bfd4c896318bce593";
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 let isDown = false;
@@ -92,7 +93,7 @@ const dealWithMovie = (resultArr) => {
       console.log("DATA: ", data)
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
-      data.results.slice(0, 5).forEach(element => {
+      data.results.slice(0, 5).forEach(movie => {
 
         const {title, poster_path, vote_average, id} = movie;
         const movieEl = document.createElement('div');
@@ -127,6 +128,16 @@ const dealWithMovieTrailer = async (movieId) => {
       // we have to put this ^ in our iframe when presenting the results;
     })
     .catch(error => console.log(error));
+}
+
+function getColor(vote) {
+  if(vote>= 8){
+      return 'green'
+  }else if(vote >= 5){
+      return "orange"
+  }else{
+      return 'red'
+  }
 }
 
 /* Deal with Google search */

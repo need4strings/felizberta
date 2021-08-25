@@ -1,5 +1,5 @@
 body {
-	background: #222032 !important;
+  background: #EEEDED !important;
 }
 
 .felizberta{
@@ -137,7 +137,7 @@ body {
 }
 
 .result div {
-	background: white;
+	
 	height:auto;
 	padding: 1rem;
 
@@ -172,55 +172,59 @@ body {
 
 
 .movie img{
+	display: flex;
+	justify-content: center;
     width:100%;
 	object-fit: fill;
 	border-radius: 8px;
-	display: flex
-	
 }
 
 .movie-info h3{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
 	letter-spacing: 0.5px;
 	font-family:"Marker Felt", fantasy;
-	margin-top: 0;
-	 font-size: 40px;
-	 justify-content: center;
-    align-items: center;
+	margin-top: 15px;
+	font-size: 1vw;
     height: 50px;
     
 }
 
 
 .movie-info span.green{
-	display: grid;
+	display: flex;
+	justify-content: center;
 	width: 120px;
     line-height: 120px;
     border-radius: 50%;
     text-align: center;
-    font-size: 75px;
+    font-size: 35px;
     border: 2px solid #666;
     color:lightgreen;
 }
 
 .movie-info span.orange{
-	display: grid;
+	display: flex;
+	justify-content: center;
 	width: 120px;
     line-height: 120px;
     border-radius: 50%;
     text-align: center;
-    font-size: 75px;
+    font-size: 35px;
     border: 2px solid #666;
     color:orange;
 }
 
 .movie-info span.red{
-	display: grid;
+	display: flex;
+	justify-content: center;
 	width: 120px;
     line-height: 120px;
     border-radius: 50%;
     text-align: center;
-    font-size: 75px;
+    font-size: 35px;
     border: 2px solid #666;
     color:red;
 }
@@ -230,6 +234,7 @@ body {
 
 .know-more{
 	display: flex;
+	justify-content: center;
     background-color: orange;
     color:white;
     font-size: 25px;
