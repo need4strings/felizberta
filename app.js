@@ -107,7 +107,7 @@ const dealWithMovie = (resultArr) => {
             <div class="knowMore">
                 <br/> 
                 <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
-            </div>
+
         `
        
         result.appendChild(movieEl);
@@ -141,36 +141,44 @@ function getColor(vote) {
 }
 const movieSelected = async (id) => {
   clearResult();
+  const filme = document.getElementById("filme");
   return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
-      const {title, poster_path, vote_average, id, release_date} = movie; 
+      const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
         console.log(movie + "isto é o filme")
         const card = document.createElement('div');
-        card.classList.add('movie');
-        card.innerHTML = `   
+        
+        card.innerHTML = `  
+        <div class="card" >
             <div class="poster">
                <img src="${IMGPATH + poster_path}">
             </div>
             <div class="details">
-            <h3>${title} ${release_date}<br><span>director</span></h3>
-            </div>  
-            <div class="rating">
-            </div>  
-
-          
-                <h3>${title}</h3>
-                <br/>
-                <span class="${getColor(vote_average)}">${vote_average}</span>
+            <h2>${title} ${release_date}<br><span>director</span></h2>
+                <div class="rating">
+                <span ="${getColor(vote_average)}">${vote_average}</span>
+                </div>
+                  <div class="tags">
+                      <span class="genre">${genre}</span>
+                  </div>    
+                  <div class="info">
+                    <p> ${overview} </p>
+                  </div> 
+                  <div class="star">
+                      <h4>cast</h4>
+                      <ul>
+                          <li><imagem></li>
+                      </ul> 
+                  </div>   
             </div>
-            <div class="knowMore">
-                <br/> 
-                <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
-            </div>
+            </div>  
         `
-       
-        result.appendChild(movieEl);
+        filme.appendChild(card);
+        moveDownAnimation();
+        
       })
+      
       .catch((err) => {
         console.log(err);
       });
