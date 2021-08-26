@@ -71,6 +71,8 @@ recognition.onresult = (event) => {
       .catch(error => console.log(error));
   } else if (result.includes("comandos")) {
     Commands(strings, fadeInContent, moveDownAnimation);
+  } else if (result.includes("home")) {
+    location.reload();
   }
 }
 
