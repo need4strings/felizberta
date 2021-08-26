@@ -232,7 +232,7 @@ body {
 
 
 
-.know-more{
+.know-more {
 	display: flex;
 	justify-content: center;
     background-color: orange;
@@ -259,3 +259,21 @@ body {
 }
 
 
+.card {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 450px;
+	background: #000;
+}
+
+.card .poster{
+	position: relative;
+	overflow: hidden;
+}
+
+.card .poster img{
+	width: 100%;
+}

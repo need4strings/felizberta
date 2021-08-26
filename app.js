@@ -11,12 +11,12 @@ const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const tmdbApiKey = "9c1056f24930eda7a00e44206ef692d9";
 const googleSearchApiKey = "AIzaSyB4goZy0s0ULExCk1IKGt3EZtuVlwZL4nw";
 const weatherApiKey = "76fa95835f831b9bfd4c896318bce593";
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 let isDown = false;
 
-recognition.onstart = () => {
+recognition.onstart = () => { 
   clearResult();
   startAnimation();
   console.log("voice activated, you can speak");
@@ -80,7 +80,6 @@ const moveDownAnimation = () => {
 const dealWithMovie = (resultArr) => {
   console.log('TENHO FILME');
   const movie = resultArr[1];
-  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
   const result = document.getElementById("result");
   console.log("MOVIE: ", movie);
 
@@ -99,7 +98,7 @@ const dealWithMovie = (resultArr) => {
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.innerHTML = `   
-        <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
+        <img src="${IMGPATH + poster_path}">
             <div class="movie-info">
                 <h3>${title}</h3>
                 <br/>
@@ -145,13 +144,21 @@ const movieSelected = async (id) => {
   return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
-      const {title, poster_path, vote_average, id} = movie; 
+      const {title, poster_path, vote_average, id, release_date} = movie; 
         console.log(movie + "isto é o filme")
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movie');
-        movieEl.innerHTML = `   
-        <img src="${IMG_URL + movie.poster_path}">
-            <div class="movie-info">
+        const card = document.createElement('div');
+        card.classList.add('movie');
+        card.innerHTML = `   
+            <div class="poster">
+               <img src="${IMGPATH + poster_path}">
+            </div>
+            <div class="details">
+            <h3>${title} ${release_date}<br><span>director</span></h3>
+            </div>  
+            <div class="rating">
+            </div>  
+
+          
                 <h3>${title}</h3>
                 <br/>
                 <span class="${getColor(vote_average)}">${vote_average}</span>
