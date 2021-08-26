@@ -17,6 +17,7 @@ const commandsView = (strings, fadeInContent, moveDownAnimation) => {
           <li class="commandsListItem"><b>${strings.weather}: </b>${strings.commands_list_weather}</li>
           <li class="commandsListItem"><b>${strings.google}: </b>${strings.commands_list_google}</li>
           <li class="commandsListItem"><b>${strings.youtube}: </b>${strings.commands_list_youtube}</li>
+          <li class="commandsListItem"><b>${strings.home}: </b>${strings.commands_list_home}</li>
         </ul>
       </div>
       <div class="commandsImgContainer">

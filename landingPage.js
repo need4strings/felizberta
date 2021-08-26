@@ -32,6 +32,8 @@ const landingPageView = () => {
 
   $('.fas').click(iconClick);
   $('.fab').click(iconClick);
+  $('.homePageImg').mouseover(felizbertaHover);
+  $('.homePageImg').click(felizbertaClick);
 }
 
 const iconClick = (event) => {
@@ -62,6 +64,38 @@ const iconClick = (event) => {
   } else if(className.includes('plus')) {
     utterance = new SpeechSynthesisUtterance(strings.explain_more);
   }
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
+}
+
+const felizbertaHover = (event) => {
+
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(strings.ouch);
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
+}
+
+const felizbertaClick = (event) => {
+
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(strings.felizberta_speak);
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
 }

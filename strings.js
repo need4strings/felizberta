@@ -22,11 +22,15 @@ const strings = {
     weather: "Meteriologia",
     google: "Pesquisa Google",
     youtube: "Pesquisa Youtube",
+    home: "Home",
     commands_list_movie: "&quot;Mostra-me o filme The Lord of the Rings&quot;",
     commands_list_cocktails: "&quot;Dá-me sugestões de cocktails para hoje à noite!&quot;",
     commands_list_weather: "&quot;Como vai estar o tempo?&quot;",
     commands_list_google: "&quot;Pesquisa no Google: cães fofos&quot;",
     commands_list_youtube: "&quot;Pesquisa no YouTube: Baby Shark&quot;",
+    commands_list_home: "&quot;Volta para a home!&quot;",
+    ouch: "QUE CÓCEGAS",
+    felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!"
   },
   stringsEn: {
     foundMovie: "I found these result for the movie ",
@@ -50,11 +54,14 @@ const strings = {
     weather: "Weather",
     google: "Google search",
     youtube: "YouTube search",
+    home: "Home",
     commands_list_movie: "&quot;Show me the movie The Lord of the Rings&quot;",
     commands_list_cocktails: "&quot;Give me cocktail suggestion for tonight!&quot;",
     commands_list_weather: "&quot;How's the weather?&quot;",
     commands_list_google: "&quot;Search Google: cute dogs&quot;",
     commands_list_youtube: "&quot;Search YouTube: Baby Shark&quot;",
+    commands_list_home: "&quot;Go back home!&quot;",
+    ouch: "Ouch"
   }
 }
 

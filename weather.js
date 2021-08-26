@@ -35,7 +35,8 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
     navigator.geolocation.getCurrentPosition(position => {
       const long = position.coords.longitude;
       const lat = position.coords.latitude;
-      const api = `https://api.darksky.net/forecast/eb9d28c07b047831e664f8c758a456e1/${lat},${long}`;
+      const proxy = "https://cors-anywhere.herokuapp.com/";
+      const api = `${proxy}https://api.darksky.net/forecast/eb9d28c07b047831e664f8c758a456e1/${lat},${long}`;
 
       fetch(api)
         .then(response => {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
+
 body {
 	background: #f1f1f1 !important;
   margin: 0 !important;
@@ -45,7 +47,7 @@ body {
 	height: 120px;
 	border-radius: 50%;
 	background: #030d36;
-	box-shadow: 0px 0px 80px #252525;
+	box-shadow: 0px 0px 80px #2e2c85;
 	position: absolute;
 }
 
@@ -271,6 +273,7 @@ body {
   font-size: 85px;
   margin-top: 0px;
   margin-bottom: 80px;
+  font-family: 'Allison', cursive;
 }
 
 .homePageSubtitle {
@@ -287,15 +290,16 @@ body {
 
 .imgContainer {
   width: 50%;
-  margin-right: 200px;
+  margin-right: 100px;
 }
 
 .homePageImg {
   display: block;
   height: 41.25rem;
-  width: 41.25rem;
+  width: 47.25rem;
   border-radius: 10%;
   margin-top: 130px;
+  cursor: pointer;
 }
 
 .homePageImg:hover {
