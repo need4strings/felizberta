@@ -1,9 +1,7 @@
 /* Deal with YouTube search */
-const dealWithYoutube = (resultArr, strings) => {
+const dealWithYoutube = (resultArr, strings, speak) => {
   const searchFor = resultArr[1];
-  const utterance = new SpeechSynthesisUtterance(strings.searchYoutube + searchFor + strings.bro);
-  utterance.rate = 1;
-  speechSynthesis.speak(utterance);
+  speak(strings.searchYoutube + searchFor + strings.bro);
   window.open("https://www.youtube.com/results?search_query=" + searchFor, '_blank');
 }
 

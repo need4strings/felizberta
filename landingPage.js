@@ -39,7 +39,6 @@ const landingPageView = () => {
 const iconClick = (event) => {
 
   const userLanguage = window.navigator.userLanguage || window.navigator.language;
-  console.log('USER LANGUAGE', userLanguage);
   let strings;
 
   if (userLanguage === "pt-PT") {

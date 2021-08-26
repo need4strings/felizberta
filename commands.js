@@ -1,10 +1,7 @@
-const commandsView = (strings, fadeInContent, moveDownAnimation) => {
-  console.log('COMANDOS');
+const commandsView = (strings, fadeInContent, moveDownAnimation, speak) => {
   fadeInContent();
   moveDownAnimation();
-  const utterance = new SpeechSynthesisUtterance(strings.commands);
-  utterance.rate = 1;
-  speechSynthesis.speak(utterance);
+  speak(strings.commands);
 
   $('div.commandsPage').append(`
     <div class="commandsPageContainer">

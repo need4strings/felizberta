@@ -30,7 +30,9 @@ const strings = {
     commands_list_youtube: "&quot;Pesquisa no YouTube: Baby Shark&quot;",
     commands_list_home: "&quot;Volta para a home!&quot;",
     ouch: "QUE CÓCEGAS",
-    felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!"
+    felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!",
+    felizberta_ask_to_repeat: "Não percebi, podes repetir por favor?",
+    api_error: "Houve um erro a ir buscar os seus resultados, por favor tente mais tarde"
   },
   stringsEn: {
     foundMovie: "I found these result for the movie ",
@@ -61,7 +63,10 @@ const strings = {
     commands_list_google: "&quot;Search Google: cute dogs&quot;",
     commands_list_youtube: "&quot;Search YouTube: Baby Shark&quot;",
     commands_list_home: "&quot;Go back home!&quot;",
-    ouch: "Ouch"
+    ouch: "Ouch",
+    felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!",
+    felizberta_ask_to_repeat: "Can you please repeat that?",
+    api_error: "There was an error fetching your results, please try again later"
   }
 }
 

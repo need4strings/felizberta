@@ -1,21 +1,16 @@
 /* Deal with a request for suggested cocktails */
-async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation) {
-  let fetchedArray = await fetchCocktails(isDown);
+async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak) {
+  let fetchedArray = await fetchCocktails(isDown, speak, strings);
 
-  let utterance = new SpeechSynthesisUtterance(strings.cocktails + strings.bro);
-  utterance.rate = 1;
-  speechSynthesis.speak(utterance);
+  speak(strings.cocktails + strings.bro);
 
   setTimeout(() => { 
-    utterance = new SpeechSynthesisUtterance(strings.alcohol);
-    utterance.rate = 1;
-    speechSynthesis.speak(utterance);
+    speak(strings.alcohol);
   }, 1000);
 
   fadeInContent();
   moveDownAnimation();
   
-
   const presented = await presentCocktails(fetchedArray);
 
   //alternativa a tentar
@@ -27,11 +22,12 @@ async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDo
 }
 
 /*fetch function for suggested cocktails */
-async function fetchCocktails(isDown) {
+async function fetchCocktails(isDown, speak, strings) {
   let myRequest = new Request('https:thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
   let response = await fetch(myRequest);
 
   if (!response.ok) {
+    speak(strings.api_error);
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 

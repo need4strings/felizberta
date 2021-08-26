@@ -19,8 +19,9 @@ window.onload = () => {
   LandingPage(Strings);
 }
 
-const userLanguage = window.navigator.userLanguage || window.navigator.language;
-  console.log('USER LANGUAGE', userLanguage);
+const checkLanguage = () => {
+
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
   let strings;
 
   if (userLanguage === "pt-PT") {
@@ -28,6 +29,11 @@ const userLanguage = window.navigator.userLanguage || window.navigator.language;
   } else {
     strings = Strings.stringsEn;
   }
+  
+  return strings;
+}
+
+const strings = checkLanguage();
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -36,7 +42,6 @@ let isDown = false;
 recognition.onstart = () => {
   clearResult();
   startAnimation();
-  console.log("voice activated, you can speak");
   clearResult();
 }
 
@@ -44,35 +49,36 @@ recognition.onstart = () => {
 recognition.onresult = (event) => {
   stopAnimation();
 
-  console.log('EVENNT: ', event);
   const result = event.results[0][0].transcript;
-  console.log("TU DISSESTE: ", result);
+  console.log("YOU SAID: ", result);
   let resultArr;
 
   if (result.includes("filme") || result.includes("movie")) {
-
     if (userLanguage === "pt-PT") {
       resultArr = result.split("filme");
     } else {
       resultArr = result.split("movie");
     }
 
-    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown);
+    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak);
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
-    Google(resultArr, strings);
+    Google(resultArr, strings, speak);
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
-    Youtube(resultArr, strings);
+    Youtube(resultArr, strings, speak);
   } else if (result.includes("tempo")) {
-    Weather(fadeInContent, moveDownAnimation, strings);
+    Weather(fadeInContent, moveDownAnimation, strings, speak);
   } else if (result.includes("cocktails")) {
-    Cocktails(isDown, strings, fadeInContent, moveDownAnimation)
+    Cocktails(isDown, strings, fadeInContent, moveDownAnimation, speak)
       .catch(error => console.log(error));
   } else if (result.includes("comandos")) {
-    Commands(strings, fadeInContent, moveDownAnimation);
+    Commands(strings, fadeInContent, moveDownAnimation, speak);
   } else if (result.includes("home")) {
     location.reload();
+  } else {
+    speak(strings.felizberta_ask_to_repeat);
+    new SpeechRecognition();
   }
 }
 
@@ -102,7 +108,6 @@ const fadeOutContent = () => {
   result.style.animation = "contentFadeOut 2s forwards";
   homePage.style.animation = "contentFadeOut 2s forwards";
   commandsPage.style.animation = "contentFadeOut 2s forwards";
-  console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
@@ -113,7 +118,6 @@ const fadeInContent = () => {
   commandsPage.style.animation = "contentFadeIn 2s forwards";
   homePage.style.animation = "contentFadeIn 2s forwards";
   result.style.animation = "contentFadeIn 2s forwards";
-  console.log('result', result);
   /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
@@ -132,9 +136,14 @@ const clearResult = () => {
 }
 
 const moveUpAnimation = () => {
-  console.log("estou a tentar ir para cima")
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
+}
+
+const speak = (toBeSaid) => {
+  const utterance = new SpeechSynthesisUtterance(toBeSaid);
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
 }
 
 //jQuery reminder
