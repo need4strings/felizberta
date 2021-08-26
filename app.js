@@ -149,8 +149,8 @@ const movieSelected = async (id) => {
         console.log(movie + "isto é o filme")
         const card = document.createElement('div');
         
-        card.innerHTML = `  
-        <div class="card" >
+        card.innerHTML = `   ~
+           <div class="card">
             <div class="poster">
                <img src="${IMGPATH + poster_path}">
             </div>
