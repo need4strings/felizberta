@@ -245,9 +245,9 @@ function presentCocktails(fetchedArray) {
 
 //function to fetch details after a click event on an individual cocktail image
 function fetchCocktailById(id, clickedId) {
-  clearDetails();
+  /*clearDetails();
   reduceOpacityOnImages(clickedId);
-  fadeAnimationBeforeShowingDetails();
+  fadeAnimationBeforeShowingDetails();*/
 
   fetch('https:thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id)
     .then(response => response.json())
@@ -278,8 +278,9 @@ function fetchCocktailById(id, clickedId) {
 
       console.log('total ingredients = ', totalIngredients);
 
+      
 
-      /*$('div.result').after(`
+      $('.result').after(`
       <div class="bg-modal">
           <div class="modal-content">
               <div onclick="closeModal()" class="close">+</div>
@@ -295,7 +296,7 @@ function fetchCocktailById(id, clickedId) {
       $(`.modal-content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
       }
       
-      $('.bg-modal').style('display', 'flex');*/
+      $('.bg-modal').css('display', 'flex');
 
       /*$(`.box${clickedId} .details .content`).append(`<p id="ingredientsTitle">Ingredients</p>
       <ul></ul>`);
@@ -316,7 +317,9 @@ function fetchCocktailById(id, clickedId) {
 }
 
 function closeModal() {
-  $('.bg-modal').style('display', 'none');
+  $('.bg-modal').css('display', 'none');
+  $('.bg-modal').remove();
+
 }
 
 function reduceOpacityOnImages(clickedId) {
