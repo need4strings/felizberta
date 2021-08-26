@@ -179,26 +179,26 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 170px;
 }
 
 .widget {
-  background: linear-gradient(to bottom right, #3cc0fe 20%, #0066ff);
+  background: linear-gradient(to bottom right, #82d7ff 20%, #0393f3);
   width: 900px;
   height: auto;
   border-radius: 6px;
-  box-shadow: 0px 60px 80px -20px rgba(#27a5fd, 0.4);
+  box-shadow: 0px 60px 80px -20px rgba(#27a5fd, 0.4) !important;
   position: relative;
   overflow: hidden;
 }
 
 .icon {
   position: absolute;
-  border-radius: 50%;
   background: linear-gradient(160deg, rgba(#3cc0fe, 0.7) 40%, rgba(#0066ff, 0.6));
-  right: -40px;
+  right: 55px;
   top: 50px;
-	height: 300px;
-	width: 600px;
+	height: 200px;
+	width: 400px;
 }
 
 .details{
@@ -218,18 +218,18 @@ body {
   font-size: 30px;
 }
 .summary {
-  color: #d2e9fa;
+  color: #ffffff;
   font-size: 2em;
   font-weight: 300;
   width: 260px;
   margin-top: -16px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #9cd0ff;
+  border-bottom: 2px solid #ffffff;
   margin-left: 8px;
 }
 
 .summaryTomorrow {
-  color: #d2e9fa;
+  color: #ffffff;
   font-size: 1.1em;
   font-weight: 200;
   width: auto;
@@ -243,7 +243,7 @@ body {
 }
 
 .precipitation, .wind {
-  color: #d2e9fa;
+  color: #ffffff;
   font-size: 1.6em;
   font-weight: 300;
   margin-left: 8px;
@@ -254,7 +254,7 @@ body {
 .wind {
   margin-top: 4px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #9cd0ff;
+  border-bottom: 2px solid #ffffff;
   width: 260px;
   margin-bottom: 10px;
 }
@@ -352,12 +352,14 @@ body {
 }
 .commandsListItem {
   padding-left: 1.3em;
+  margin-bottom: 10px;
+  font-size: larger;
 }
 .commandsListItem:before {
-  content: "\f00c"; /* FontAwesome Unicode */
+  content: "\f130"; /* FontAwesome Unicode */
   font-family: FontAwesome;
   display: inline-block;
-  margin-left: -1.3em; /* same as padding-left set on li */
-  width: 1.3em; /* same as padding-left set on li */
-  font-size: large;
+  margin-left: -1.3em;
+  width: 1.3em;
+  font-size: larger;
 }

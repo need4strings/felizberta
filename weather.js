@@ -4,7 +4,7 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
 
   $('div.result').append(`
     <div class="container">
-      <div class="widget">
+      <div id="widget" class="widget">
         <div class="details">
           <div class="temperature">
             <div>F</div>
@@ -57,16 +57,18 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings) => {
 
           //Formula for Celsius
           let celsius = (temperature - 32) * (5 / 9);
-          console.log("CELSIUS", Math.floor(celsius));
+          const widget = document.getElementById("widget");
 
           //Felizberta Speak
           let utterance;
           if (celsius > 25) {
-            console.log('HEHE');
+            widget.style.background = "linear-gradient(to bottom right, #ffad7d 20%, #c73002)";
             utterance = new SpeechSynthesisUtterance(strings.temperatureHot);
           } else if (celsius < 20 && celsius > 10) {
+            widget.style.background = "linear-gradient(to bottom right, #ffe282 20%, #f3c703)";
             utterance = new SpeechSynthesisUtterance(strings.temperatureMild);
           } else if (celsius < 10) {
+            widget.style.background = "linear-gradient(to bottom right, #82d7ff 20%, #0393f3)";
             utterance = new SpeechSynthesisUtterance(strings.temperatureCold);
           } else {
             utterance = new SpeechSynthesisUtterance(strings.temperatureNormal);
