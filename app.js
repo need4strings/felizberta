@@ -155,12 +155,12 @@ const movieSelected = async (id) => {
                <img src="${IMGPATH + poster_path}">
             </div>
             <div class="details">
-            <h2>${title} ${release_date}<br><span>director</span></h2>
+            <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by:</span></h2>
                 <div class="rating">
-                <span ="${getColor(vote_average)}">${vote_average}</span>
+                <span> Score: ${vote_average}</span>
                 </div>
                   <div class="tags">
-                      <span class="genre">${genre}</span>
+                      <span class="genre">Fantasia</span>
                   </div>    
                   <div class="info">
                     <p> ${overview} </p>

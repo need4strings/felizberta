@@ -172,7 +172,7 @@ body {
 }
 
 
-/*
+
 .movie img{
 	display: flex;
 	justify-content: center;
@@ -194,7 +194,7 @@ body {
     
 }
 
-
+*/
 .movie-info span.green{
 	display: flex;
 	justify-content: center;
@@ -232,7 +232,7 @@ body {
 }
 
 
-
+/*
 
 .know-more {
 	display: flex;
@@ -281,7 +281,7 @@ body {
 .card .poster:before {
 	content: "";
 	position: absolute;
-	bottom: -182px;
+	bottom: -250px;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -302,7 +302,6 @@ body {
 .card:hover .poster img {
 	filter: blur(5px);
 	transform: translateY(-50px)
-
 }
 
 .details {
@@ -310,7 +309,7 @@ body {
 	padding: 20px;
 	width: 100%;
 	height: 74%;
-	bottom: -182px;
+	bottom: -250px;
 	left: 0;
 	box-sizing: border-box;
 	transition: 0.5s;
@@ -337,11 +336,12 @@ body {
 .rating {
 	position: relative;
 	padding: 5px 0;
+	color:lightgreen;
 }
 
 .tags {
 	position: relative;
-	margin-top: 5px;
+	margin-top: 10px;
 }
 
 .tags span {
@@ -355,6 +355,9 @@ body {
 
 .info {
 	color: #fff;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 18px;
+
 
 }
 
