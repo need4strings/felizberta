@@ -144,59 +144,25 @@ const movieSelected = async (id) => {
   clearResult();
   return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
-    .then(data => {
-      let movie = response.data;
-
-      let output =`
-        <div class="row">
-          <div class="col-md-4">
-            <img src="${movie.Poster}" class="thumbnail">
-          </div>
-          <div class="col-md-8">
-            <h2>${movie.Title}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Genre:</strong> ${movie.Genre}</li>
-              <li class="list-group-item"><strong>Released:</strong> ${movie.Released}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.Rated}</li>
-              <li class="list-group-item"><strong>IMDB Rating:</strong> ${movie.imdbRating}</li>
-              <li class="list-group-item"><strong>Director:</strong> ${movie.Director}</li>
-              <li class="list-group-item"><strong>Writer:</strong> ${movie.Writer}</li>
-              <li class="list-group-item"><strong>Actors:</strong> ${movie.Actors}</li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="well">
-            <h3>Plot</h3>
-            ${movie.Plot}
-            <hr>
-            <a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
-            <a href="index.html" class="btn btn-default">Go Back To Search</a>
-          </div>
-        </div>
-      `;
-      console.log("esta é a data que eu quero: ", data);
-      return data.results;
-  
-      // we have to put this ^ in our iframe when presenting the results;
-    })
-    .catch(error => console.log(error));
-}
-
- /*
-function movieSelected(id){
-  console.log("entrei aquiiiiiiiiiiii")
-  console.log(id)
-  clearResult();
-   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
-    console.log("tb entrei aqui!!!!!!!!!!")
-    console.log("novo iddd" + id)
-    .then(response => response.json())
-    .then(data => {
-      console.log("vou mostrar " + data)
-     
-      moveDownAnimation();
-        isDown = true;
+    .then(async movie => {
+      const {title, poster_path, vote_average, id} = movie; 
+        console.log(movie + "isto é o filme")
+        const movieEl = document.createElement('div');
+        movieEl.classList.add('movie');
+        movieEl.innerHTML = `   
+        <img src="${IMG_URL + movie.poster_path}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <br/>
+                <span class="${getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="knowMore">
+                <br/> 
+                <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
+            </div>
+        `
+       
+        result.appendChild(movieEl);
       })
       .catch((err) => {
         console.log(err);
