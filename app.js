@@ -278,15 +278,34 @@ function fetchCocktailById(id, clickedId) {
 
       console.log('total ingredients = ', totalIngredients);
 
-      $(`.box${clickedId} .details .content`).append(`<p id="ingredientsTitle">Ingredients</p>
-                                                      <ul></ul>`);
 
+      /*$('div.result').after(`
+      <div class="bg-modal">
+          <div class="modal-content">
+              <div onclick="closeModal()" class="close">+</div>
+              <p id="title">Ingredients</p>
+              <ul></ul>
+              <p id="title">Instructions</p>
+              <p id="instructions">${instructions}</p>
+          </div>
+      
+      </div>`)
+      
       for (let ingredient in totalIngredients) {
-        $(`.box${clickedId} .details .content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
+      $(`.modal-content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
       }
+      
+      $('.bg-modal').style('display', 'flex');*/
 
+      /*$(`.box${clickedId} .details .content`).append(`<p id="ingredientsTitle">Ingredients</p>
+      <ul></ul>`);
+      
+      for (let ingredient in totalIngredients) {
+      $(`.box${clickedId} .details .content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
+      }
+      
       $(`.box${clickedId} .details .content`).append(`<p id="instructionsTitle">Instructions</p>
-                                                      <p id="instructions">${instructions}</p>`);
+      <p id="instructions">${instructions}</p>`);*/
 
 
     })
@@ -294,6 +313,10 @@ function fetchCocktailById(id, clickedId) {
 
 
 
+}
+
+function closeModal() {
+  $('.bg-modal').style('display', 'none');
 }
 
 function reduceOpacityOnImages(clickedId) {
@@ -318,8 +341,8 @@ function clearDetails() {
     $('.content p, ul').fadeOut(0)
   });
   /* $('.details').on('mouseleave', function () {
-     $('.content p').empty()
-   });*/
+  $('.content p').empty()
+  });*/
 }
 
 //jQuery reminder
