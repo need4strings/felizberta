@@ -23,16 +23,21 @@ const strings = {
     google: "Pesquisa Google",
     youtube: "Pesquisa Youtube",
     home: "Home",
+    cat: "Gato Random",
+    random_joke: "Piada Random",
     commands_list_movie: "&quot;Mostra-me o filme The Lord of the Rings&quot;",
     commands_list_cocktails: "&quot;Dá-me sugestões de cocktails para hoje à noite!&quot;",
     commands_list_weather: "&quot;Como vai estar o tempo?&quot;",
     commands_list_google: "&quot;Pesquisa no Google: cães fofos&quot;",
     commands_list_youtube: "&quot;Pesquisa no YouTube: Baby Shark&quot;",
     commands_list_home: "&quot;Volta para a home!&quot;",
+    commands_list_cat: "&quot;Mostra-me um gato qualquer&quot;",
+    commands_list_meme: "&quot;Conta-me uma piada&quot;",
     ouch: "QUE CÓCEGAS",
     felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!",
     felizberta_ask_to_repeat: "Não percebi, podes repetir por favor?",
-    api_error: "Houve um erro a ir buscar os seus resultados, por favor tente mais tarde"
+    api_error: "Houve um erro a ir buscar os seus resultados, por favor tente mais tarde",
+    random_cat: "Aqui tens um gato fofo, miau"
   },
   stringsEn: {
     foundMovie: "I found these result for the movie ",
@@ -57,16 +62,21 @@ const strings = {
     google: "Google search",
     youtube: "YouTube search",
     home: "Home",
+    cat: "Random Cat",
+    random_joke: "Random Joke",
     commands_list_movie: "&quot;Show me the movie The Lord of the Rings&quot;",
     commands_list_cocktails: "&quot;Give me cocktail suggestion for tonight!&quot;",
     commands_list_weather: "&quot;How's the weather?&quot;",
     commands_list_google: "&quot;Search Google: cute dogs&quot;",
     commands_list_youtube: "&quot;Search YouTube: Baby Shark&quot;",
     commands_list_home: "&quot;Go back home!&quot;",
+    commands_list_cat: "&quot;Show me a random cat&quot;",
+    commands_list_meme: "&quot;Tell me a joke&quot;",
     ouch: "Ouch",
     felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!",
     felizberta_ask_to_repeat: "Can you please repeat that?",
-    api_error: "There was an error fetching your results, please try again later"
+    api_error: "There was an error fetching your results, please try again later",
+    random_cat: "Here's a cute cat, awwww"
   }
 }
 

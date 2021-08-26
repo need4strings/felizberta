@@ -340,7 +340,7 @@ body {
   display: block;
   width: 70rem;
   border-radius: 10%;
-  margin-top: 300px;
+  margin-top: 50px;
   opacity: 0.5;
 }
 
@@ -352,6 +352,7 @@ body {
 .commandsList {
   list-style: none;
   padding: 0;
+  overflow-y: scroll;
   text-align: initial;
 }
 .commandsListItem {
@@ -363,7 +364,58 @@ body {
   content: "\f130"; /* FontAwesome Unicode */
   font-family: FontAwesome;
   display: inline-block;
-  margin-left: -1.3em;
   width: 1.3em;
   font-size: larger;
+}
+
+.catImgContainer, .memeImgContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.catImg, .memeImg {
+  height: 800px;
+  width: 1000px;
+  display: block;
+  border-radius: 10%;
+  cursor: pointer;
+}
+
+.homeButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+/* Fill button styling */
+.fill {
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 50px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 500px;
+}
+
+.fill::after {
+  content: "";
+  background-color: #6987ff;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+
+.fill:hover::after {
+  top: 0px;
+  left: 0px;
 }

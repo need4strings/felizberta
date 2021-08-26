@@ -7,6 +7,8 @@ import ApiKeys from './apiKeys.js';
 import Cocktails from './cocktails.js';
 import Weather from './weather.js';
 import Commands from './commands.js';
+import RandomCat from './randomCat.js';
+import RandomMeme from './randomMeme.js';
 
 window.onload = () => {
   const talkBtn = document.getElementById("talk");
@@ -76,6 +78,10 @@ recognition.onresult = (event) => {
     Commands(strings, fadeInContent, moveDownAnimation, speak);
   } else if (result.includes("home")) {
     location.reload();
+  } else if (result.includes("gato qualquer")) {
+    RandomCat(strings, fadeInContent, moveDownAnimation, speak);
+  } else if (result.includes("piada")) {
+    RandomMeme(strings, fadeInContent, moveDownAnimation, speak);
   } else {
     speak(strings.felizberta_ask_to_repeat);
     new SpeechRecognition();
@@ -99,6 +105,8 @@ const moveDownAnimation = () => {
   isDown = true;
   const box = document.getElementById("box")
   box.style.animation = "moveDown 2s forwards";
+  const homeButton = document.getElementById("homeButton");
+  homeButton.style.display = "none";
 }
 
 const fadeOutContent = () => {
@@ -138,12 +146,20 @@ const clearResult = () => {
 const moveUpAnimation = () => {
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
+  const homeButton = document.getElementById("homeButton");
+  homeButton.onclick = goHome;
+  console.log("GOING UP: ", homeButton);
+  homeButton.style.display = "block";
 }
 
 const speak = (toBeSaid) => {
   const utterance = new SpeechSynthesisUtterance(toBeSaid);
     utterance.rate = 1;
     speechSynthesis.speak(utterance);
+}
+
+const goHome = () => {
+  location.reload();
 }
 
 //jQuery reminder

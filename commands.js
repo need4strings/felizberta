@@ -14,6 +14,8 @@ const commandsView = (strings, fadeInContent, moveDownAnimation, speak) => {
           <li class="commandsListItem"><b>${strings.weather}: </b>${strings.commands_list_weather}</li>
           <li class="commandsListItem"><b>${strings.google}: </b>${strings.commands_list_google}</li>
           <li class="commandsListItem"><b>${strings.youtube}: </b>${strings.commands_list_youtube}</li>
+          <li class="commandsListItem"><b>${strings.cat}: </b>${strings.commands_list_cat}</li>
+          <li class="commandsListItem"><b>${strings.random_joke}: </b>${strings.commands_list_meme}</li>
           <li class="commandsListItem"><b>${strings.home}: </b>${strings.commands_list_home}</li>
         </ul>
       </div>
