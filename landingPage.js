@@ -2,6 +2,15 @@ import Strings from "./strings.js";
 
 const landingPageView = () => {
 
+  const userLanguage = window.navigator.userLanguage || window.navigator.language;
+  let strings;
+
+  if (userLanguage === "pt-PT") {
+    strings = Strings.stringsPt;
+  } else {
+    strings = Strings.stringsEn;
+  }
+
   $('div.homePage').append(`
     <div class="homePageContainer">
       <div class="imgContainer">

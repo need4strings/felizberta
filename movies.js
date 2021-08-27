@@ -5,15 +5,15 @@ const dealWithMovie = async (resultArr, ApiKeys, strings, speak, moveDownAnimati
   const movie = resultArr[1];
   fadeInContent();
   moveDownAnimation();
-  const presentMovies = await movieRequest(tmdbApiKey, movie, speak, IMGPATH, clearResult);
+  const presentMovies = await movieRequest(tmdbApiKey, movie, speak, IMGPATH, clearResult, strings);
 }
 
-const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult) => {
+const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, strings) => {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
       console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAA', data);
-      speak("Encontrei isto para o filme " + movie + " meu brou");
+      speak(strings.foundMovie + movie + strings.bro);
 
       const trailer = await dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
 

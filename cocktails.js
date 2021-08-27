@@ -2,7 +2,7 @@
 async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak) {
   let fetchedArray = await fetchCocktails(isDown);
 
-  speak(strings.cocktails + strings.bro);
+  speak(strings.cocktails_suggestion + strings.bro);
 
   setTimeout(() => { 
     speak(strings.alcohol);
@@ -107,16 +107,19 @@ function fetchCocktailById(event) {
       }
 
       $('.result').after(`
-      <div class="bg-modal">
-          <div class="modal-content">
-              <div class="close">+</div>
-              <p id="title">Ingredients</p>
-              <ul></ul>
-              <p id="title">Instructions</p>
-              <p id="instructions">${instructions}</p>
-          </div>
-      
-      </div>`)
+        <div class="bg-modal">
+            <div class="modal-content">
+                <div class="close">+</div>
+                <div class="modal-details">
+                  <h2 id="ingredientsTitle">Ingredients</h2>
+                  <ul></ul>
+                  <h2 id="instructionsTitle">Instructions</h2>
+                  <p id="instructions">${instructions}</p>
+                </div>
+            </div>
+        </div>`
+      )
+
 
       $(".close").click(closeModal);
       

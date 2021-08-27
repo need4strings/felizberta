@@ -4,7 +4,6 @@ body {
 	background: #f1f1f1 !important;
   margin: 0 !important;
   overflow-y: hidden;
-  /*font-family: 'Roboto', sans-serif;*/
 }
 
 * {
@@ -117,7 +116,7 @@ body {
 /* Cocktails*/
 .cocktails {
 	max-width: 1000px;
-	margin: 3rem auto 0;
+	margin: 6rem auto 0;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -248,19 +247,39 @@ body {
 }
 
 .modal-content{
-	width:800px;
-	height:500px;
-	background:#F1F1F1;
-	border-radius:4px;
-	text-align:center;
-	padding:20px;
-	position:relative;
+	width: 800px;
+  height: 500px;
+  background: #F1F1F1;
+  border-radius: 4px;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  padding: 50px;
+  overflow-y: scroll;
+
 }
 
-.modal-content p ul{
+.modal-details{
+	position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  justify-content: center;
+}
+
+.modal-details p h2 ul{
 	width:50%;
-	display:block;
-	margin:15px auto;
+}
+
+.modal-details h2{
+	text-transform: uppercase;
+	font-size: 17px;
+	margin-bottom: 5%;
+	margin-top: 0;
+}
+
+.modal-details #instructionsTitle{
+	margin-top: 10%;
 }
 
 .close{
@@ -276,8 +295,17 @@ body {
 	color:grey;
 }
 
-.modal-content ul {
+.modal-details ul {
 	list-style-type: none;
+	padding: 0;
+}
+
+.modal-details ul li {
+	margin-bottom: 2px;
+}
+
+.modal-details p {
+	line-height: 1.4;
 }
 
 @keyframes overlay{
@@ -526,7 +554,7 @@ body {
   cursor: pointer;
   position: relative;
   background-color: rgba(0, 0, 0, 0);
-  margin-top: 500px;
+  margin-top: 600px;
 }
 
 .fill::after {

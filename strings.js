@@ -1,6 +1,7 @@
 const strings = {
   stringsPt: {
-    foundMovie: "Encontrei isto para o filme",
+    app_desc: "",
+    foundMovie: "Encontrei isto para o filme ",
     bro: " meu brou",
     searchGoogle: "Encontrei estes resultados para a pesquisa ",
     searchYoutube: "Encontrei isto no YouTube para a pesquisa ",
@@ -40,6 +41,7 @@ const strings = {
     random_cat: "Aqui tens um gato fofo, miau"
   },
   stringsEn: {
+    app_desc: "",
     foundMovie: "I found these result for the movie ",
     bro: " bro",
     searchGoogle: "I found these results for the Google search: ",
