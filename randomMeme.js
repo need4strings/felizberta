@@ -8,7 +8,9 @@ const dealWithRandomMeme = (strings, fadeInContent, moveDownAnimation, speak) =>
       moveDownAnimation();
       console.log("MEME Data: ", data);
 
-      $('div.result').append(`
+      $('div.result').append('<div class="randomMeme"></div>');
+
+      $('div.randomMeme').append(`
         <div class="memeImgContainer">
           <img class="memeImg" src="${data.memes[0].url}"/>
         </div>`

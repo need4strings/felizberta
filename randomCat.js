@@ -9,7 +9,9 @@ const dealWithRandomCat = (strings, fadeInContent, moveDownAnimation, speak) => 
       console.log("Cat Data: ", data);
       speak(strings.random_cat);
 
-      $('div.result').append(`
+      $('div.result').append('<div class="randomCat"></div>');
+
+      $('div.randomCat').append(`
         <div class="catImgContainer">
           <img class="catImg" src="${data[0].url}"/>
         </div>`

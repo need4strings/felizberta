@@ -2,7 +2,9 @@
 const dealWithWeather = (fadeInContent, moveDownAnimation, strings, speak) => {
   console.log("TEMOS TEMPO");
 
-  $('div.result').append(`
+  $('div.result').append('<div class="weather"></div>');
+
+  $('div.weather').append(`
     <div class="container">
       <div id="widget" class="widget">
         <div class="details">
