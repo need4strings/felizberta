@@ -62,6 +62,8 @@ function getColor(vote) {
 const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   const id = event.target.id;
   const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
+  const cast = await dealWithMovieCast(id, tmdbApiKey);
+  console.log("isto é o sr " + cast)
   console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
   const result = document.getElementById("result");
@@ -110,8 +112,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
 
 /* Deal with movie trailer */
 const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
-  console.log('ID: ', movieId);
-  console.log('KEY: ', tmdbApiKey);
+
   return fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
@@ -122,6 +123,22 @@ const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
     .catch(error => {
       console.log(error);
       speak(strings.api_error)
+    });
+}
+
+const dealWithMovieCast = async (id, tmdbApiKey) => {
+
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
+  .then(response => response.json())
+  .then(data => {
+      const cast = data.cast[0].name
+      console.log("isto é o cast " + cast);
+      return cast;
+    
+
+    })
+.catch(error => {
+  console.log(error);
     });
 }
 
