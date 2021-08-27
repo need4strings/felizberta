@@ -72,7 +72,8 @@ recognition.onresult = (event) => {
   } else if (result.includes("tempo")) {
     Weather(fadeInContent, moveDownAnimation, strings, speak);
   } else if (result.includes("cocktails")) {
-    Cocktails(isDown, strings, fadeInContent, moveDownAnimation, speak)
+    console.log("COCKKKDKDKCKSDFKJ", Cocktails);
+    Cocktails.dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak)
       .catch(error => console.log(error));
   } else if (result.includes("comandos")) {
     Commands(strings, fadeInContent, moveDownAnimation, speak);
@@ -132,7 +133,7 @@ const fadeInContent = () => {
 const clearResult = () => {
   if (isDown) {
     fadeOutContent();
-    
+
     setTimeout(() => {
       $('.result').empty()
       $('.homePage').empty()
@@ -160,6 +161,7 @@ const speak = (toBeSaid) => {
 const goHome = () => {
   location.reload();
 }
+
 
 //jQuery reminder
 /*$('div.result').
