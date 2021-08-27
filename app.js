@@ -45,7 +45,6 @@ let isDown = false;
 recognition.onstart = () => { 
   clearResult();
   startAnimation();
-  clearResult();
 }
 
 /* Deal with voice command */
@@ -63,7 +62,7 @@ recognition.onresult = (event) => {
       resultArr = result.split("movie");
     }
 
-    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak, clearResult);
+    Movies(resultArr, ApiKeys, strings, speak, moveDownAnimation, fadeInContent, clearResult);
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
     Google(resultArr, strings, speak);
@@ -111,6 +110,7 @@ const moveDownAnimation = () => {
 }
 
 const fadeOutContent = () => {
+  console.log('FADE OUT');
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
   const commandsPage = document.getElementById("commandsPage");
@@ -130,6 +130,7 @@ const fadeInContent = () => {
 }
 
 const clearResult = () => {
+  console.log('CLEAR RESULT');
   if (isDown) {
     fadeOutContent();
 

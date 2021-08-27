@@ -1,19 +1,24 @@
 /* Deal with movies */
-const dealWithMovie = (resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak, clearResult) => {
+const dealWithMovie = async (resultArr, ApiKeys, strings, speak, moveDownAnimation, fadeInContent, clearResult) => {
   const IMGPATH = "https://image.tmdb.org/t/p/w1280";
   const tmdbApiKey = ApiKeys.tmdbApiKey;
   const movie = resultArr[1];
-  const result = document.getElementById("result");
+  fadeInContent();
+  moveDownAnimation();
+  const presentMovies = await movieRequest(tmdbApiKey, movie, speak, IMGPATH, clearResult);
+}
 
+const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult) => {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
+      console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAA', data);
       speak("Encontrei isto para o filme " + movie + " meu brou");
 
       const trailer = await dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
 
       //criar movie container
-      $('div.result').append(`<div class="movieContainer"></div>`);
+      $('div.result').append(`<div id="movieContainer" class="movieContainer"></div>`);
 
       data.results.slice(0, 5).forEach(movie => {
         const {title, poster_path, vote_average, id} = movie; 
@@ -37,12 +42,12 @@ const dealWithMovie = (resultArr, ApiKeys, strings, moveDownAnimation, isDown, s
 
         for (let index = 0; index < seeMore.length; index++) {
           const element = seeMore[index];
-          element.addEventListener("click", movieSelected)
+          element.addEventListener("click", () => {
+            movieSelected(event, tmdbApiKey, IMGPATH, clearResult);
+          });
         }
         
       });
-      moveDownAnimation();
-        isDown = true;
     })
     .catch(error => console.log(error))
 }
@@ -56,11 +61,13 @@ function getColor(vote) {
       return 'red'
   }
 }
-const movieSelected = async (event) => {
+const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   console.log("EVENT::::::: ", event)
-  clearResult();
+  console.log("KEY::::::: ", tmdbApiKey)
+  const id = event.target.id;
+  $('.movieContainer').empty();
   const result = document.getElementById("result");
-  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + ApiKeys.tmdbApiKey)
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
       const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
