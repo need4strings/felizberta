@@ -118,13 +118,13 @@ function fetchCocktailById(event) {
       
       </div>`)
 
-      $(".close").click(closeModal);
-      
       for (let ingredient in totalIngredients) {
       $(`.modal-content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
       }
       
       $('.bg-modal').css('display', 'flex');
+
+      $(".close").click(closeModal);
 
     })
     .catch(error => console.log(error));
