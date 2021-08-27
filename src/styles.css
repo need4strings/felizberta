@@ -107,7 +107,6 @@ body {
 }
 
 .mic-icon {
-	position: absolute;
 	margin: 21px;
 }
 
@@ -418,4 +417,75 @@ body {
 .fill:hover::after {
   top: 0px;
   left: 0px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  body {
+    overflow-y: auto !important;
+  }
+
+  .result {
+    padding: 0;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box {
+    align-self: flex-end;
+    position: relative;
+    left: unset;
+  }
+
+  .appDesc {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+  }
+
+  .homePageContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .homePageImg {
+    display: none;
+  }
+
+  .iconContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fas, .fab {
+    margin-right: 0;
+  }
+
+  @keyframes moveDown{
+    0% {
+      transform: translateY(0); 
+    }
+    100% {
+      transform: scale(0.5)translateY(50vh);
+    }
+  }
+
+  @keyframes moveUp{
+    0% {
+      transform: scale(0.5)translateY(90vh);
+    }
+    100% {
+      transform: scale(1)translateY(50vh);
+    }
+  }
+
 }

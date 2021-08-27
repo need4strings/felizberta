@@ -20,12 +20,14 @@ const landingPageView = () => {
          meatloaf doner brisket. Spare ribs frankfurter beef 
          ribs buffalo, corned beef meatball ground round 
          sirloin picanha.</p>
-         <i id="icon" class="fas fa-video fa-5x"></i>
-         <i id="icon" class="fas fa-cocktail fa-5x"></i>
-         <i id="icon" class="fas fa-cloud-sun fa-5x"></i>
-         <i id="icon" class="fab fa-google fa-5x"></i>
-         <i id="icon" class="fab fa-youtube fa-5x"></i>
-         <i id="icon" class="fas fa-plus fa-5x"></i>
+         <div class="iconContainer">
+          <i id="icon" class="fas fa-video fa-5x"></i>
+          <i id="icon" class="fas fa-cocktail fa-5x"></i>
+          <i id="icon" class="fas fa-cloud-sun fa-5x"></i>
+          <i id="icon" class="fab fa-google fa-5x"></i>
+          <i id="icon" class="fab fa-youtube fa-5x"></i>
+          <i id="icon" class="fas fa-plus fa-5x"></i>
+         </div>
       </div>
     </div>`
   );

@@ -148,14 +148,13 @@ const moveUpAnimation = () => {
   box.style.animation = "moveUp 2s forwards";
   const homeButton = document.getElementById("homeButton");
   homeButton.onclick = goHome;
-  console.log("GOING UP: ", homeButton);
   homeButton.style.display = "block";
 }
 
 const speak = (toBeSaid) => {
   const utterance = new SpeechSynthesisUtterance(toBeSaid);
-    utterance.rate = 1;
-    speechSynthesis.speak(utterance);
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
 }
 
 const goHome = () => {
