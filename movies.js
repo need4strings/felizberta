@@ -4,38 +4,34 @@ const dealWithMovie = (resultArr, ApiKeys, strings, moveDownAnimation, isDown, s
   const tmdbApiKey = ApiKeys.tmdbApiKey;
   const movie = resultArr[1];
   const result = document.getElementById("result");
-  console.log("MOVIE: ", movie);
 
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
-      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
-      utterance.rate = 1;
-      speechSynthesis.speak(utterance);
-      console.log("DATA: ", data)
+      speak("Encontrei isto para o filme " + movie + " meu brou");
+
       const trailer = await dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
-      console.log('TRAILER: ', trailer)
-      const movieContainer = document.createElement('div');
-      movieContainer.classList.add('movieContainer');
+
+      //criar movie container
+      $('div.result').append(`<div class="movieContainer"></div>`);
+
       data.results.slice(0, 5).forEach(movie => {
         const {title, poster_path, vote_average, id} = movie; 
-        console.log(movie + "isto é o filme")
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movieList');
-        movieEl.innerHTML = `
-            <img src="${IMGPATH + poster_path}"/>
-              <div class="movieList-info">
-                <h3>${title}</h3>
-                <br/>
-                <span class="${getColor(vote_average)}">${vote_average}</span>
-              </div>
-              <div class="knowMore">
-                <br/> 
-                <a id=${id} class="know-more" href="#">Movie Details</a> 
-              </div>`
 
-        movieContainer.appendChild(movieEl);
-        result.appendChild(movieContainer);
+        $('.movieContainer').append(`
+          <div class="movieList">
+            <img src="${IMGPATH + poster_path}"/>
+            <div class="movieList-info">
+              <h3>${title}</h3>
+              <br/>
+              <span class="${getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="knowMore">
+              <br/> 
+              <a id=${id} class="know-more" href="#">Movie Details</a> 
+            </div>
+          </div>`
+        )
 
         const seeMore = document.getElementsByClassName("know-more");
 
