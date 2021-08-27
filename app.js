@@ -163,6 +163,25 @@ const goHome = () => {
 }
 
 
+
+function readResponseAsBlob(response) {
+  return response.blob();
+}
+
+
+async function presentMovies(fetchedArray, trailer) { 
+  console.log("present this", fetchedArray)
+  console.log("now present this", trailer)
+ 
+}
+
+
+
+//fetchPoster('examples/kitten.jpg');
+
+
+
+
 //jQuery reminder
 /*$('div.result').
  $('.result').html('<h1>rfyghnjmk>/h1>');
