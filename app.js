@@ -37,11 +37,12 @@ const checkLanguage = () => {
 
 const strings = checkLanguage();
 
+const userLanguage = window.navigator.userLanguage || window.navigator.language;
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
 const recognition = new SpeechRecognition();
 let isDown = false;
 
-recognition.onstart = () => {
+recognition.onstart = () => { 
   clearResult();
   startAnimation();
   clearResult();
@@ -62,7 +63,7 @@ recognition.onresult = (event) => {
       resultArr = result.split("movie");
     }
 
-    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak);
+    Movies(resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak, clearResult);
   } else if (result.includes("Google")) {
     resultArr = result.split("Google");
     Google(resultArr, strings, speak);
@@ -72,7 +73,6 @@ recognition.onresult = (event) => {
   } else if (result.includes("tempo")) {
     Weather(fadeInContent, moveDownAnimation, strings, speak);
   } else if (result.includes("cocktails")) {
-    console.log("COCKKKDKDKCKSDFKJ", Cocktails);
     Cocktails.dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak)
       .catch(error => console.log(error));
   } else if (result.includes("comandos")) {
@@ -127,7 +127,6 @@ const fadeInContent = () => {
   commandsPage.style.animation = "contentFadeIn 2s forwards";
   homePage.style.animation = "contentFadeIn 2s forwards";
   result.style.animation = "contentFadeIn 2s forwards";
-  /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
 const clearResult = () => {
@@ -162,31 +161,6 @@ const goHome = () => {
   location.reload();
 }
 
-
-
 function readResponseAsBlob(response) {
   return response.blob();
 }
-
-
-async function presentMovies(fetchedArray, trailer) { 
-  console.log("present this", fetchedArray)
-  console.log("now present this", trailer)
- 
-}
-
-
-
-//fetchPoster('examples/kitten.jpg');
-
-
-
-
-//jQuery reminder
-/*$('div.result').
- $('.result').html('<h1>rfyghnjmk>/h1>');
- $('.result').append('<div></div>');
- $('.result').after('<div></div>');
-
-//para fazer quando alguém carregar no botão uma seguinte vez
-/*$('.result').empty();*/

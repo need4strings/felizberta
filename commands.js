@@ -2,8 +2,9 @@ const commandsView = (strings, fadeInContent, moveDownAnimation, speak) => {
   fadeInContent();
   moveDownAnimation();
   speak(strings.commands);
+  $('div.result').append(`<div class="commands"></div>`);
 
-  $('div.commandsPage').append(`
+  $('.commands').append(`
     <div class="commandsPageContainer">
       <div class="commandsTextContainer">
         <h2 class="homePageSubtitle">Comandos disponíveis</h2>

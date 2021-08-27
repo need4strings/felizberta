@@ -1,24 +1,110 @@
 /* Deal with movies */
-const dealWithMovie = (resultArr, apiKeys, strings, moveDownAnimation, isDown, speak) => {
-  console.log('TENHO FILME');
+const dealWithMovie = (resultArr, ApiKeys, strings, moveDownAnimation, isDown, speak, clearResult) => {
+  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+  const tmdbApiKey = ApiKeys.tmdbApiKey;
   const movie = resultArr[1];
+  const result = document.getElementById("result");
   console.log("MOVIE: ", movie);
-  const tmdbApiKey = apiKeys.tmdbApiKey;
 
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
-    .then(data => {
-      speak(strings.foundMovie + movie + strings.bro)
+    .then(async data => {
+      const utterance = new SpeechSynthesisUtterance("Encontrei isto para o filme " + movie + " meu brou");
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
       console.log("DATA: ", data)
-      dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
+      const trailer = await dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
+      console.log('TRAILER: ', trailer)
+      const movieContainer = document.createElement('div');
+      movieContainer.classList.add('movieContainer');
+      data.results.slice(0, 5).forEach(movie => {
+        const {title, poster_path, vote_average, id} = movie; 
+        console.log(movie + "isto é o filme")
+        const movieEl = document.createElement('div');
+        movieEl.classList.add('movieList');
+        movieEl.innerHTML = `
+            <img src="${IMGPATH + poster_path}"/>
+              <div class="movieList-info">
+                <h3>${title}</h3>
+                <br/>
+                <span class="${getColor(vote_average)}">${vote_average}</span>
+              </div>
+              <div class="knowMore">
+                <br/> 
+                <a id=${id} class="know-more" href="#">Movie Details</a> 
+              </div>`
+
+        movieContainer.appendChild(movieEl);
+        result.appendChild(movieContainer);
+
+        const seeMore = document.getElementsByClassName("know-more");
+
+        for (let index = 0; index < seeMore.length; index++) {
+          const element = seeMore[index];
+          element.addEventListener("click", movieSelected)
+        }
+        
+      });
       moveDownAnimation();
-      isDown = true;
+        isDown = true;
     })
-    .catch(error => {
-      console.log(error);
-      speak(strings.api_error)
-    });
+    .catch(error => console.log(error))
 }
+
+function getColor(vote) {
+  if(vote>= 8){
+      return 'green'
+  }else if(vote >= 5){
+      return "orange"
+  }else{
+      return 'red'
+  }
+}
+const movieSelected = async (event) => {
+  console.log("EVENT::::::: ", event)
+  clearResult();
+  const result = document.getElementById("result");
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + ApiKeys.tmdbApiKey)
+    .then(response => response.json())
+    .then(async movie => {
+      const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
+        console.log(movie + "isto é o filme")
+        const card = document.createElement('div');
+        
+        card.innerHTML = `   
+           <div class="card">
+            <div class="poster">
+               <img src="${IMGPATH + poster_path}">
+            </div>
+            <div class="movieDetails">
+            <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by:</span></h2>
+                <div class="rating">
+                <span> Score: ${vote_average}</span>
+                </div>
+                  <div class="tags">
+                      <span class="genre">Fantasia</span>
+                  </div>    
+                  <div class="info">
+                    <p> ${overview} </p>
+                  </div> 
+                  <div class="star">
+                      <h4>cast</h4>
+                      <ul>
+                          <li><imagem></li>
+                      </ul> 
+                  </div>   
+            </div>
+            </div>  
+        `
+        result.appendChild(card);
+        moveDownAnimation();
+        
+      })
+      
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
 /* Deal with movie trailer */
 const dealWithMovieTrailer = (movieId, tmdbApiKey) => {
