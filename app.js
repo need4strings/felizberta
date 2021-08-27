@@ -231,24 +231,30 @@ function choose6Cocktails(fetchedArray) {
 function presentCocktails(fetchedArray) {
   let cocktailName;
   let cocktailImage;
-
+  $('div.result').append(`<div class="cocktails"></div>`);
+  
   for (let i = 0; i < fetchedArray.length; i++) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
 
-    $('div.result').append(`<div class="box${i}"></div>`);
-    $(`.box${i}`).append(`<div id="imgBox" class="imgBox"><img id="cocktail" src="${cocktailImage}"></div>`);
-    $(`.box${i}`).append(`<div id ="details" class="details"><div id ="content" class ="content"><h2>${cocktailName}</h2>
-    <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink},${i})" style="cursor:pointer">See more</a></div></div>`);
+    $('.cocktails').append(`
+    <div class="cocktailsBox">
+      <div id="cocktailsImgBox" class="cocktailsImgBox">
+        <img id="cocktail" src="${cocktailImage}">
+      </div>
+      <div id ="cocktailsDetails" class="cocktailsDetails">
+        <div id ="cocktailsContent" class ="cocktailsContent">
+          <h2>${cocktailName}</h2>
+          <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink},${i})" style="cursor:pointer">See more</a>
+        </div>
+      </div>
+    </div>`);
   }
 }
 
 //function to fetch details after a click event on an individual cocktail image
 function fetchCocktailById(id, clickedId) {
-  /*clearDetails();
-  reduceOpacityOnImages(clickedId);
-  fadeAnimationBeforeShowingDetails();*/
-
+  
   fetch('https:thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id)
     .then(response => response.json())
     .then(data => {
@@ -278,8 +284,6 @@ function fetchCocktailById(id, clickedId) {
 
       console.log('total ingredients = ', totalIngredients);
 
-      
-
       $('.result').after(`
       <div class="bg-modal">
           <div class="modal-content">
@@ -298,55 +302,16 @@ function fetchCocktailById(id, clickedId) {
       
       $('.bg-modal').css('display', 'flex');
 
-      /*$(`.box${clickedId} .details .content`).append(`<p id="ingredientsTitle">Ingredients</p>
-      <ul></ul>`);
-      
-      for (let ingredient in totalIngredients) {
-      $(`.box${clickedId} .details .content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
-      }
-      
-      $(`.box${clickedId} .details .content`).append(`<p id="instructionsTitle">Instructions</p>
-      <p id="instructions">${instructions}</p>`);*/
-
-
+  
     })
     .catch(error => console.log(error));
-
-
-
 }
 
 function closeModal() {
   $('.bg-modal').css('display', 'none');
   $('.bg-modal').remove();
-
 }
 
-function reduceOpacityOnImages(clickedId) {
-  $('.imgBox img').css('opacity', '.3')
-
-  $('.details').on('mouseleave', function () {
-    $('.imgBox img').css('opacity', '1')
-  });
-}
-
-function fadeAnimationBeforeShowingDetails() {
-  $('.content h2, a').fadeOut(1000);
-  $('.content h2, a').css("display", "none");
-  $('.details').on('mouseleave', function () {
-    $('.content h2, a').fadeIn(0)
-  });
-
-}
-
-function clearDetails() {
-  $('.details').on('mouseenter', function () {
-    $('.content p, ul').fadeOut(0)
-  });
-  /* $('.details').on('mouseleave', function () {
-  $('.content p').empty()
-  });*/
-}
 
 //jQuery reminder
 /*$('div.result').
