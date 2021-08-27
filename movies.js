@@ -15,8 +15,6 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
       console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAA', data);
       speak(strings.foundMovie + movie + strings.bro);
 
-      const trailer = await dealWithMovieTrailer(data.results[0].id, tmdbApiKey);
-
       //criar movie container
       $('div.result').append(`<div id="movieContainer" class="movieContainer"></div>`);
 
@@ -62,12 +60,12 @@ function getColor(vote) {
   }
 }
 const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
-  console.log("EVENT::::::: ", event)
-  console.log("KEY::::::: ", tmdbApiKey)
   const id = event.target.id;
+  const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
+  console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
   const result = document.getElementById("result");
-  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
+  fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
       const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
@@ -89,7 +87,8 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                   </div>    
                   <div class="info">
                     <p> ${overview} </p>
-                  </div> 
+                  </div>
+                  <a href="https://www.youtube.com/embed/${trailer}" target="_blank">Trailer</a>
                   <div class="star">
                       <h4>cast</h4>
                       <ul>
@@ -110,12 +109,14 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   }
 
 /* Deal with movie trailer */
-const dealWithMovieTrailer = (movieId, tmdbApiKey) => {
-  fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
+const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
+  console.log('ID: ', movieId);
+  console.log('KEY: ', tmdbApiKey);
+  return fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
-      console.log("TRAILER: ", data);
       const trailer = data.results[0].key;
+      return trailer;
       // we have to put this ^ in our iframe when presenting the results;
     })
     .catch(error => {
