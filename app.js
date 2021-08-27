@@ -92,25 +92,31 @@ const dealWithMovie = (resultArr) => {
       console.log("DATA: ", data)
       const trailer = await dealWithMovieTrailer(data.results[0].id);
       console.log('TRAILER: ', trailer)
+      const movieContainer = document.createElement('div');
+      movieContainer.classList.add('movieContainer');
       data.results.slice(0, 5).forEach(movie => {
         const {title, poster_path, vote_average, id} = movie; 
         console.log(movie + "isto é o filme")
         const movieEl = document.createElement('div');
-        movieEl.classList.add('movie');
-        movieEl.innerHTML = `   
+        movieEl.classList.add('movieList');
+        movieEl.innerHTML = `
+       <div class="movieList">   
         <img src="${IMGPATH + poster_path}">
-            <div class="movie-info">
+            <div class="movieList-info">
                 <h3>${title}</h3>
                 <br/>
                 <span class="${getColor(vote_average)}">${vote_average}</span>
             </div>
             <div class="knowMore">
                 <br/> 
-                <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a>  
+                <a onclick="movieSelected(${id})" class="know-more" href="#">Movie Details</a> 
+                </div> 
+        </div> 
 
         `
-       
-        result.appendChild(movieEl);
+        movieContainer.appendChild(movieEl);
+        result.appendChild(movieContainer);
+        
       });
       moveDownAnimation();
         isDown = true;
@@ -141,7 +147,7 @@ function getColor(vote) {
 }
 const movieSelected = async (id) => {
   clearResult();
-  const filme = document.getElementById("filme");
+  const result = document.getElementById("result");
   return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
@@ -149,12 +155,12 @@ const movieSelected = async (id) => {
         console.log(movie + "isto é o filme")
         const card = document.createElement('div');
         
-        card.innerHTML = `   ~
+        card.innerHTML = `   
            <div class="card">
             <div class="poster">
                <img src="${IMGPATH + poster_path}">
             </div>
-            <div class="details">
+            <div class="movieDetails">
             <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by:</span></h2>
                 <div class="rating">
                 <span> Score: ${vote_average}</span>
@@ -174,7 +180,7 @@ const movieSelected = async (id) => {
             </div>
             </div>  
         `
-        filme.appendChild(card);
+        result.appendChild(card);
         moveDownAnimation();
         
       })
