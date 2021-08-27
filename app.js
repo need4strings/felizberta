@@ -169,7 +169,6 @@ const clearResult = () => {
 }
 
 const moveUpAnimation = () => {
-  console.log("estou a tentar ir para cima")
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
 }
@@ -184,15 +183,7 @@ async function dealWithSuggestedCocktails() {
   fadeInContent();
   moveDownAnimation();
 
-
   const presented = await presentCocktails(fetchedArray);
-
-  //alternativa a tentar
-  /*fetchCocktails()
-    .then(result => {
-      presentCocktails(result);
-    })
-    .catch(error => console.log(error));*/
 }
 
 /*fetch function for suggested cocktails */
@@ -222,8 +213,6 @@ function choose6Cocktails(fetchedArray) {
     randomIndex = Math.floor(Math.random() * 100);
     chosen6Cocktails.push(fetchedArray.drinks[randomIndex]);
   }
-  console.log('chosen 6', chosen6Cocktails);
-
   return chosen6Cocktails;
 }
 
@@ -232,7 +221,7 @@ function presentCocktails(fetchedArray) {
   let cocktailName;
   let cocktailImage;
   $('div.result').append(`<div class="cocktails"></div>`);
-  
+
   for (let i = 0; i < fetchedArray.length; i++) {
     cocktailImage = fetchedArray[i].strDrinkThumb;
     cocktailName = fetchedArray[i].strDrink;
@@ -245,7 +234,7 @@ function presentCocktails(fetchedArray) {
       <div id ="cocktailsDetails" class="cocktailsDetails">
         <div id ="cocktailsContent" class ="cocktailsContent">
           <h2>${cocktailName}</h2>
-          <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink},${i})" style="cursor:pointer">See more</a>
+          <a id="${i}" onclick="fetchCocktailById(${fetchedArray[i].idDrink})" style="cursor:pointer">See more</a>
         </div>
       </div>
     </div>`);
@@ -253,12 +242,11 @@ function presentCocktails(fetchedArray) {
 }
 
 //function to fetch details after a click event on an individual cocktail image
-function fetchCocktailById(id, clickedId) {
+function fetchCocktailById(id) {
   
   fetch('https:thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id)
     .then(response => response.json())
     .then(data => {
-      console.log("DATA: ", data);
       const drink = data.drinks[0];
       const instructions = drink.strInstructions;
       let totalIngredients = [];
@@ -269,9 +257,7 @@ function fetchCocktailById(id, clickedId) {
         let ingredientProperty = `strIngredient${counter}`;
 
         if (drink[ingredientProperty] !== null && drink[ingredientProperty] !== "") {
-          //ingredientProperty = `strIngredient${counter}`;
           let measuresProperty = `strMeasure${counter}`;
-
           const ingredient = drink[ingredientProperty];
           const measure = drink[measuresProperty];
 
@@ -281,8 +267,6 @@ function fetchCocktailById(id, clickedId) {
         }
         hasIngredients = false;
       }
-
-      console.log('total ingredients = ', totalIngredients);
 
       $('.result').after(`
       <div class="bg-modal">
@@ -302,7 +286,6 @@ function fetchCocktailById(id, clickedId) {
       
       $('.bg-modal').css('display', 'flex');
 
-  
     })
     .catch(error => console.log(error));
 }
