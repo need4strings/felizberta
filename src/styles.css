@@ -196,7 +196,10 @@ body {
 	display: grid;
 	padding: 2rem;
 	grid-gap: 2rem;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(100px, 0.2fr) ) ;
+  align-items:center;
+  justify-content: center;
+  margin-top: 40px;
 	
 	
 }
@@ -659,60 +662,72 @@ body {
 	align-items: center;
 	text-align: center;
 	letter-spacing: 0.5px;
-	font-family:"Marker Felt", fantasy;
-	margin-top: 15px;
-	font-size: 1vw;
-  height: 50px;
+
+	margin-top: 25px;
+	font-size: 22px;
+  height: 5px;
+  font-weight: bold;
     
 }
 
 .movieList-info span.green{
 	display: flex;
 	justify-content: center;
-	width: 120px;
-  line-height: 120px;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
   border-radius: 50%;
   text-align: center;
-  font-size: 35px;
+  font-size: 25px;
   border: 2px solid #666;
   color:lightgreen;
+  align-items: center;
+  font-weight: bold;
 }
 
 .movieList-info span.orange{
 	display: flex;
 	justify-content: center;
-	width: 120px;
-  line-height: 120px;
+  text-align: center;
+	width: 70px;
+  height: 70px;
+  line-height: 70px;
   border-radius: 50%;
   text-align: center;
-  font-size: 35px;
+  font-size: 25px;
   border: 2px solid #666;
   color:orange;
+  align-items: center;
+  font-weight: bold;
 }
 
 .movieList-info span.red{
 	display: flex;
+  align-items: center;
 	justify-content: center;
-	width: 120px;
-  line-height: 120px;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
   border-radius: 50%;
   text-align: center;
-  font-size: 35px;
+  font-size: 25px;
   border: 2px solid #666;
   color:red;
+  font-weight: bold;
 }
 
 .know-more {
 	display: flex;
 	justify-content: center;
-  background-color: orange;
+  background-color: #030d36;
   color:white;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   border:0;
   border-radius: 50px;
   padding: 10px 20px;
-  margin-top: 5px;
+  margin-top: -30px;
+  
 }
 
 .movieList img:hover{

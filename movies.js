@@ -31,7 +31,7 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
             </div>
             <div class="knowMore">
               <br/> 
-              <a id=${id} class="know-more" href="#">Movie Details</a> 
+              <a id=${id} class="know-more" href="#" style="text-decoration: none;">Movie Details </a> 
             </div>
           </div>`
         )
@@ -93,7 +93,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                       <h4>cast</h4>
                       <ul>
                           <li><imagem></li>
-                      </ul> 
+                        </ul> 
                   </div>   
             </div>
             </div>  
