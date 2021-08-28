@@ -73,6 +73,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
       const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
         console.log(movie + "isto é o filme")
         const card = document.createElement('div');
+        console.log("isto é a nova cast" + cast )
         
         card.innerHTML = `   
            <div class="card">
@@ -94,7 +95,12 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                   <div class="star">
                       <h4>cast</h4>
                       <ul>
-                          <li><imagem></li>
+                          <li><img src="${IMGPATH + cast[0]}"></li>
+                          <li><img src="${IMGPATH + cast[1]}"></li>
+                          <li><img src="${IMGPATH + cast[2]}"></li>
+                          <li><img src="${IMGPATH + cast[3]}"></li>
+                          <li><img src="${IMGPATH + cast[4]}"></li>
+                          <li><img src="${IMGPATH + cast[5]}"></li>
                         </ul> 
                   </div>   
             </div>
@@ -131,7 +137,8 @@ const dealWithMovieCast = async (id, tmdbApiKey) => {
   return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
   .then(response => response.json())
   .then(data => {
-      const cast = data.cast[0].name
+      const cast = data.cast.map(({profile_path}) => profile_path)
+      
       console.log("isto é o cast " + cast);
       return cast;
     
