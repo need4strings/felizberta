@@ -1,8 +1,8 @@
 const strings = {
   stringsPt: {
     app_desc: `A pesquisa por voz confere a esta aplicação uma utilização intuitiva através de comandos que permitem
-        uma maior velocidade no acesso à informação desejada.Este espaço em constante atualização promete mantê-lo 
-        entretido enquanto pesquisa as suas mais peculiares curiodidades. Quer pretenda saber detalhes sobre o seu 
+        uma maior velocidade no acesso à informação desejada. Este espaço em constante atualização promete mantê-lo 
+        entretido enquanto pesquisa as suas mais peculiares curiosidades. Quer pretenda saber detalhes sobre o seu 
         filme favorito, pedir sugestões de cocktails num dia menos inspirado, saber imeditamente a meteoreologia para 
         a sua exata localização, fazer uma pesquisa no Google ou no Youtube, ou até escapar de um momento mais monótono 
         com um Gif divertido, poderá fazê-lo clicando no botão de activação de voz que se encontra no fundo desta página.`,
@@ -49,8 +49,8 @@ const strings = {
   stringsEn: {
     app_desc: `Voice-activated search enables this app to have a very intuitive navigation with time-saving commands 
     that give access to the desired information. This space, in constant update, promisses to keep you entertained while
-    you browse through your most peculiar curiosities. Whether you want know the details of your favourite movies,
-    ask for suggestions of cocktails on a less inspired day, to imediatly know the weather for your exact location, to
+    you browse through your most peculiar curiosities. Whether you want to know the details of your favourite movies,
+    ask for suggestions of cocktails on a less inspired day, to immediately know the weather for your exact location, to
     browse through Google and Youtube, or even to escape a monotonous moment with a funny Gif, you'll be able to do that
     by clicking on the activation button that you'll find on the bottom of this page.`,
     home_page_subtitle: "The new voice App!",
