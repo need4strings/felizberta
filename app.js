@@ -69,18 +69,18 @@ recognition.onresult = (event) => {
   } else if (result.includes("YouTube")) {
     resultArr = result.split("YouTube");
     Youtube(resultArr, strings, speak);
-  } else if (result.includes("tempo")) {
+  } else if (result.includes("tempo") || result.includes("weather")) {
     Weather(fadeInContent, moveDownAnimation, strings, speak);
   } else if (result.includes("cocktails")) {
     Cocktails.dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak)
       .catch(error => console.log(error));
-  } else if (result.includes("comandos")) {
+  } else if (result.includes("comandos") || result.includes("commands")) {
     Commands(strings, fadeInContent, moveDownAnimation, speak);
   } else if (result.includes("home")) {
     location.reload();
-  } else if (result.includes("gato qualquer")) {
+  } else if (result.includes("gato qualquer") || result.includes("random cat")) {
     RandomCat(strings, fadeInContent, moveDownAnimation, speak);
-  } else if (result.includes("piada")) {
+  } else if (result.includes("piada") || result.includes("joke")) {
     RandomMeme(strings, fadeInContent, moveDownAnimation, speak);
   } else {
     speak(strings.felizberta_ask_to_repeat);

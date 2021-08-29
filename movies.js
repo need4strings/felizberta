@@ -12,7 +12,6 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
-      console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAA', data);
       speak(strings.foundMovie + movie + strings.bro);
 
       //criar movie container
@@ -66,17 +65,13 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   const director = await dealWithMovieDirector(id, tmdbApiKey);
   const genre = await dealWithMovieGenre(id, tmdbApiKey);
 
-  console.log("isto é o sr " + cast)
-  console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
   const result = document.getElementById("result");
   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
       const { title, poster_path, vote_average, id, release_date, overview } = movie;
-      console.log(movie + "isto é o filme")
       const card = document.createElement('div');
-      console.log("isto é a nova cast" + cast)
 
       card.innerHTML = `   
            <div class="card">
@@ -97,9 +92,9 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                   <div class="info">
                     <p> ${overview} </p>
                   </div>
-                  <a href="https://www.youtube.com/embed/${trailer}" class ="trailer target="_blank">Watch Trailer</a>
+                  <a href="https://www.youtube.com/embed/${trailer}" class ="trailer" target="_blank">Watch Trailer</a>
                   <div class="star">
-                      <h4>cast</h4>
+                      <h4>Cast</h4>
                       <ul>
                           <li><img src="${IMGPATH + cast[0]}"></li>
                           <li><img src="${IMGPATH + cast[1]}"></li>
@@ -170,8 +165,6 @@ const dealWithMovieGenre = async (id, tmdbApiKey) => {
     .then(response => response.json())
     .then(data => {
       const whichGenre = data.genres.map(({name}) => name)
-
-      console.log("dataaa221 = " + whichGenre)
       return whichGenre
     })
     .catch(error => {
