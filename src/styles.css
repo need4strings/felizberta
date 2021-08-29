@@ -49,7 +49,7 @@ body {
 	height: 120px;
 	border-radius: 50%;
 	background: #030d36;
-	box-shadow: 0px 0px 80px #2e2c85;
+	box-shadow: 0px 0px 80px #616161;
 	position: absolute;
 }
 
@@ -406,6 +406,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  color: #020925;
 }
 
 .homePageTitle {
@@ -425,6 +426,7 @@ body {
   margin-bottom: 60px;
   margin-top: 0px;
   margin-right: 170px;
+  line-height: 25px;
 }
 
 .imgContainer {
@@ -446,16 +448,12 @@ body {
   transition: all 0.5s ease-in-out;
 }
 
-.textContainer {
-  color: black;
-}
-
 .fas, .fab {
   transition: transform .7s ease-in-out;
   cursor: pointer;
   margin-top: 20px;
   margin-right: 65px;
-  color: rgb(2,0,36);
+  color: #020925;
   color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,48,213,1) 29%, rgba(145,0,255,1) 100%);
 }
 
@@ -469,6 +467,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #020925;
 }
 
 .commandsImgContainer {
@@ -484,7 +483,6 @@ body {
 }
 
 .commandsTextContainer {
-  color: black;
   text-align: center;
 }
 
