@@ -4,14 +4,22 @@ const dealWithMovie = async (resultArr, ApiKeys, strings, speak, moveDownAnimati
   const tmdbApiKey = ApiKeys.tmdbApiKey;
   const movie = resultArr[1];
   fadeInContent();
-  moveDownAnimation();
-  const presentMovies = await movieRequest(tmdbApiKey, movie, speak, IMGPATH, clearResult, strings);
+  //moveDownAnimation();
+  const presentMovies = await movieRequest(tmdbApiKey, movie, speak, IMGPATH, clearResult, strings, moveDownAnimation);
 }
 
-const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, strings) => {
+const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, strings, moveDownAnimation) => {
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
+
+      if (data.results.length === 0) {
+        speak(strings.no_movie_found + movie);
+        return;
+      }
+
+      moveDownAnimation();
+
       speak(strings.foundMovie + movie + strings.bro);
 
       //criar movie container
@@ -40,7 +48,7 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
         for (let index = 0; index < seeMore.length; index++) {
           const element = seeMore[index];
           element.addEventListener("click", () => {
-            movieSelected(event, tmdbApiKey, IMGPATH, clearResult);
+            movieSelected(event, tmdbApiKey, IMGPATH, clearResult, speak);
           });
         }
 
@@ -58,14 +66,15 @@ function getColor(vote) {
     return 'red'
   }
 }
-const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
+const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult, speak) => {
   const id = event.target.id;
-  const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
+  const trailer = await dealWithMovieTrailer(id, tmdbApiKey, speak);
   const cast = await dealWithMovieCast(id, tmdbApiKey);
   const director = await dealWithMovieDirector(id, tmdbApiKey);
   const genre = await dealWithMovieGenre(id, tmdbApiKey);
-
-  $('.movieContainer').empty();
+  const movieContainer = document.getElementById("movieContainer");
+  movieContainer.style.filter = "blur(8px)";
+  
   const result = document.getElementById("result");
   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
@@ -73,7 +82,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
       const { title, poster_path, vote_average, id, release_date, overview } = movie;
       const card = document.createElement('div');
 
-      card.innerHTML = `   
+      card.innerHTML = `
            <div class="card">
             <div class="poster">
                <img src="${IMGPATH + poster_path}">
@@ -107,6 +116,12 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
              </div>
             </div>  
         `
+
+      movieContainer.addEventListener("click", () => {
+        movieContainer.style.filter = "none";
+        $('.card').remove();
+      });
+
       result.appendChild(card);
       moveDownAnimation();
 
@@ -118,7 +133,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
 }
 
 /* Deal with movie trailer */
-const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
+const dealWithMovieTrailer = async (movieId, tmdbApiKey, speak) => {
   return fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
