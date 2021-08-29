@@ -92,7 +92,7 @@ const strings = {
     felizberta_speak: "Hello, my name is Felizberta. I'm here to help you however you need!",
     felizberta_ask_to_repeat: "Can you please repeat that?",
     api_error: "There was an error fetching your results, please try again later",
-    random_cat: "Here's a cute cat, awwww"
+    random_cat: "Here's a cute cat, meow"
   }
 }
 
