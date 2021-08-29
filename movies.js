@@ -19,7 +19,7 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
       $('div.result').append(`<div id="movieContainer" class="movieContainer"></div>`);
 
       data.results.slice(0, 5).forEach(movie => {
-        const {title, poster_path, vote_average, id} = movie; 
+        const { title, poster_path, vote_average, id } = movie;
 
         $('.movieContainer').append(`
           <div class="movieList">
@@ -44,19 +44,19 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
             movieSelected(event, tmdbApiKey, IMGPATH, clearResult);
           });
         }
-        
+
       });
     })
     .catch(error => console.log(error))
 }
 
 function getColor(vote) {
-  if(vote>= 8){
-      return 'green'
-  }else if(vote >= 5){
-      return "orange"
-  }else{
-      return 'red'
+  if (vote >= 8) {
+    return 'green'
+  } else if (vote >= 5) {
+    return "orange"
+  } else {
+    return 'red'
   }
 }
 const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
@@ -64,6 +64,8 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
   const cast = await dealWithMovieCast(id, tmdbApiKey);
   const director = await dealWithMovieDirector(id, tmdbApiKey);
+  const genre = await dealWithMovieGenre(id, tmdbApiKey);
+
   console.log("isto é o sr " + cast)
   console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
@@ -71,23 +73,26 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
-      const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
-        console.log(movie + "isto é o filme")
-        const card = document.createElement('div');
-        console.log("isto é a nova cast" + cast )
-        
-        card.innerHTML = `   
+      const { title, poster_path, vote_average, id, release_date, overview } = movie;
+      console.log(movie + "isto é o filme")
+      const card = document.createElement('div');
+      console.log("isto é a nova cast" + cast)
+
+      card.innerHTML = `   
            <div class="card">
             <div class="poster">
                <img src="${IMGPATH + poster_path}">
             </div>
             <div class="movieDetails">
-            <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by: ${director}</span></h2>
+            <h2>${title}<br><br><span>Release Date: ${release_date}</span><br></h2>
+                <div class="director">
+                <span>Directed by: ${director}</span>
+                </div>
                 <div class="rating">
                 <span> Score: ${vote_average}</span>
                 </div>
                   <div class="tags">
-                      <span class="genre">Fantasia</span>
+                      <span class="genre">${genre}</span>
                   </div>    
                   <div class="info">
                     <p> ${overview} </p>
@@ -104,18 +109,18 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                           <li><img src="${IMGPATH + cast[5]}"></li>
                       </ul> 
                   </div>   
-            </div>
+             </div>
             </div>  
         `
-        result.appendChild(card);
-        moveDownAnimation();
-        
-      })
-      
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+      result.appendChild(card);
+      moveDownAnimation();
+
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 /* Deal with movie trailer */
 const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
@@ -136,30 +141,43 @@ const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
 const dealWithMovieCast = async (id, tmdbApiKey) => {
 
   return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
-  .then(response => response.json())
-  .then(data => {
-    const cast = data.cast.map(({profile_path}) => profile_path)
-    return cast;
+    .then(response => response.json())
+    .then(data => {
+      const cast = data.cast.map(({profile_path}) => profile_path)
+      return cast;
     })
-.catch(error => {
-  console.log(error);
+    .catch(error => {
+      console.log(error);
     });
 }
 
 const dealWithMovieDirector = async (id, tmdbApiKey) => {
 
   return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
-  .then(response => response.json())
-  .then(data => {
-    const whoDirected = data.crew.find(director => director.job === "Director")
-      console.log("director = " + whoDirected)
-    return whoDirected.name
+    .then(response => response.json())
+    .then(data => {
+      const whoDirected = data.crew.find(director => director.job === "Director")
+      return whoDirected.name
     })
-.catch(error => {
-  console.log(error);
+    .catch(error => {
+      console.log(error);
     });
 }
 
-const dealWithMovieGenre = async ()
+const dealWithMovieGenre = async (id, tmdbApiKey) => {
+
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey + "&language=en-US")
+    .then(response => response.json())
+    .then(data => {
+      const whichGenre = data.genres.map(({name}) => name)
+
+      console.log("dataaa221 = " + whichGenre)
+      return whichGenre
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+}
 
 export default dealWithMovie;

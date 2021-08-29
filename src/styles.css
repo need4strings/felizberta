@@ -822,26 +822,27 @@ body {
 	color:lightgreen;
 }
 
+.director {
+  font-size: 18px;
+	color: #93aa2b;
+}
+
 .tags {
 	position: relative;
 	margin-top: 10px;
 }
 
 .tags span {
-	padding: 2px 5px;
 	margin-right: 2px;
-	color: #fff;
+	color: rgb(255, 255, 255);
 	display: inline-block;
 	border-radius: 4px;
-
 }
 
 .info {
 	color: #fff;
 	font-family: 'PT Sans', sans-serif;
 	font-size: 18px;
-
-
 }
 
 .info p {
