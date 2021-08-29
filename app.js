@@ -110,7 +110,6 @@ const moveDownAnimation = () => {
 }
 
 const fadeOutContent = () => {
-  console.log('FADE OUT');
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
   const commandsPage = document.getElementById("commandsPage");
@@ -130,7 +129,6 @@ const fadeInContent = () => {
 }
 
 const clearResult = () => {
-  console.log('CLEAR RESULT');
   if (isDown) {
     fadeOutContent();
 

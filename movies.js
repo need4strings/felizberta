@@ -12,7 +12,6 @@ const movieRequest = async (tmdbApiKey, movie, speak, IMGPATH, clearResult, stri
   fetch("https://api.themoviedb.org/3/search/movie?api_key=" + tmdbApiKey + "&language=en-US&query=" + movie + "&page=1&include_adult=false")
     .then(response => response.json())
     .then(async data => {
-      console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAA', data);
       speak(strings.foundMovie + movie + strings.bro);
 
       //criar movie container
@@ -62,14 +61,12 @@ function getColor(vote) {
 const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   const id = event.target.id;
   const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
-  console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
   const result = document.getElementById("result");
   fetch("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + tmdbApiKey)
     .then(response => response.json())
     .then(async movie => {
-      const {title, poster_path, vote_average, id, release_date, genre, overview} = movie; 
-        console.log(movie + "isto é o filme")
+      const {title, poster_path, vote_average, id, release_date, genre, overview} = movie;
         const card = document.createElement('div');
         
         card.innerHTML = `   
@@ -110,8 +107,6 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
 
 /* Deal with movie trailer */
 const dealWithMovieTrailer = async (movieId, tmdbApiKey) => {
-  console.log('ID: ', movieId);
-  console.log('KEY: ', tmdbApiKey);
   return fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + tmdbApiKey + "&language=en-US")
     .then(response => response.json())
     .then(data => {
