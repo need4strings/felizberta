@@ -1,21 +1,23 @@
-import LandingPage from './landingPage.js';
-import Google from './google.js';
+import LandingPage from './pages/landingPage.js';
+import Google from './pages/google.js';
 import Strings from './strings.js';
-import Youtube from './youtube.js';
-import Movies from './movies.js';
+import Youtube from './pages/youtube.js';
+import Movies from './pages/movies.js';
 import ApiKeys from './apiKeys.js';
-import Cocktails from './cocktails.js';
-import Weather from './weather.js';
-import Commands from './commands.js';
-import RandomCat from './randomCat.js';
-import RandomMeme from './randomMeme.js';
+import Cocktails from './pages/cocktails.js';
+import Weather from './pages/weather.js';
+import Commands from './pages/commands.js';
+import RandomCat from './pages/randomCat.js';
+import RandomMeme from './pages/randomMeme.js';
 
 window.onload = () => {
+
   const talkBtn = document.getElementById("talk");
 
   talkBtn.addEventListener("click", () => {
     recognition.start();
   });
+
   moveDownAnimation();
   fadeInContent();
   LandingPage(Strings);
@@ -35,6 +37,7 @@ const checkLanguage = () => {
   return strings;
 }
 
+/* Check user language */
 const strings = checkLanguage();
 
 const userLanguage = window.navigator.userLanguage || window.navigator.language;
@@ -42,6 +45,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const recognition = new SpeechRecognition();
 let isDown = false;
 
+/* Start voice recognition */
 recognition.onstart = () => { 
   clearResult();
   startAnimation();
@@ -100,7 +104,7 @@ const stopAnimation = () => {
   outline.style.animation = "";
 }
 
-/*Start movingDown animation*/
+/* Start movingDown animation */
 const moveDownAnimation = () => {
   isDown = true;
   const box = document.getElementById("box")
@@ -109,6 +113,7 @@ const moveDownAnimation = () => {
   homeButton.style.display = "none";
 }
 
+/* Fade out previous content */
 const fadeOutContent = () => {
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
@@ -116,9 +121,9 @@ const fadeOutContent = () => {
   result.style.animation = "contentFadeOut 2s forwards";
   homePage.style.animation = "contentFadeOut 2s forwards";
   commandsPage.style.animation = "contentFadeOut 2s forwards";
-  /*$(".cocktailImage").delay(1000).animate({ "opacity": "1" }, 700);*/
 }
 
+/* Fade in new content */
 const fadeInContent = () => {
   const result = document.getElementById("result");
   const homePage = document.getElementById("homePage");
@@ -128,6 +133,7 @@ const fadeInContent = () => {
   result.style.animation = "contentFadeIn 2s forwards";
 }
 
+/* Clear result div */
 const clearResult = () => {
   if (isDown) {
     fadeOutContent();
@@ -142,6 +148,7 @@ const clearResult = () => {
   }
 }
 
+/* Move the talk button up */
 const moveUpAnimation = () => {
   const box = document.getElementById("box")
   box.style.animation = "moveUp 2s forwards";
@@ -150,16 +157,14 @@ const moveUpAnimation = () => {
   homeButton.style.display = "block";
 }
 
+/* Make FELIZBERTA speak */
 const speak = (toBeSaid) => {
   const utterance = new SpeechSynthesisUtterance(toBeSaid);
   utterance.rate = 1;
   speechSynthesis.speak(utterance);
 }
 
+/* Go back home */
 const goHome = () => {
   location.reload();
-}
-
-function readResponseAsBlob(response) {
-  return response.blob();
 }

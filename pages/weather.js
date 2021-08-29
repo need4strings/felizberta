@@ -1,6 +1,5 @@
 /* Deal with weather request */
 const dealWithWeather = (fadeInContent, moveDownAnimation, strings, speak) => {
-  console.log("TEMOS TEMPO");
 
   $('div.result').append('<div class="weather"></div>');
 
@@ -31,7 +30,6 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings, speak) => {
   const precipitation = document.querySelector(".precipitation");
   const wind = document.querySelector(".wind");
   const temperatureSpan = document.querySelector(".temperatureDegree");
-  console.log("span", temperatureSpan);
   const temperatureTomorrowDescription = document.querySelector(".summaryTomorrowText");
 
   if (navigator.geolocation) {
@@ -48,9 +46,8 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings, speak) => {
         .then(data => {
           fadeInContent();
           moveDownAnimation();
-          console.log("ISTOOOOOO: ", data);
-          console.log("THISSSSSSSSSSSS: ", temperatureTomorrowDescription);
           const { temperature, summary, icon, precipIntensity, windSpeed } = data.currently;
+          
           //Formula for Celsius
           let celsius = (temperature - 32) * (5 / 9);
 
@@ -101,7 +98,6 @@ const dealWithWeather = (fadeInContent, moveDownAnimation, strings, speak) => {
 }
 
 const setWeatherIcons = (icon, iconId) => {
-  console.log('SETTING ICON: ', icon);
   const skycons = new Skycons({ color: "white" });
   const currentIcon = icon.replace(/-/g, "_").toUpperCase();
   skycons.play();

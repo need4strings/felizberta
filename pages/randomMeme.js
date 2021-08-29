@@ -1,12 +1,10 @@
 /* Get a random Meme */
-
 const dealWithRandomMeme = (strings, fadeInContent, moveDownAnimation, speak) => {
   fetch("https://meme-api.herokuapp.com/gimme/1")
     .then(response => response.json())
     .then(data => {
       fadeInContent();
       moveDownAnimation();
-      console.log("MEME Data: ", data);
 
       $('div.result').append('<div class="randomMeme"></div>');
 

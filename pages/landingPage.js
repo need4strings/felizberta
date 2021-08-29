@@ -1,4 +1,4 @@
-import Strings from "./strings.js";
+import Strings from "../strings.js";
 
 const landingPageView = () => {
 

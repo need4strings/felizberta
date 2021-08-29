@@ -492,7 +492,6 @@ body {
 .commandsList {
   list-style: none;
   padding: 0;
-  overflow-y: scroll;
   text-align: initial;
 }
 .commandsListItem {
@@ -500,11 +499,12 @@ body {
   margin-bottom: 10px;
   font-size: larger;
 }
+
 .commandsListItem:before {
-  content: "\f130"; /* FontAwesome Unicode */
-  font-family: FontAwesome;
+  content: "\f028"; /* FontAwesome Unicode */
+  font-family: FontAwesome !important;
   display: inline-block;
-  width: 1.3em;
+  width: 2em;
   font-size: larger;
 }
 
@@ -732,8 +732,8 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 	450px;
-	height: 650px;
+	width: 	500px;
+	height: 680px;
 	background: #000;
 	overflow: hidden;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);

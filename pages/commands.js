@@ -1,3 +1,4 @@
+/* Show commands */
 const commandsView = (strings, fadeInContent, moveDownAnimation, speak) => {
   fadeInContent();
   moveDownAnimation();

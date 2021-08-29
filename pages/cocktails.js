@@ -2,11 +2,7 @@
 async function dealWithSuggestedCocktails(isDown, strings, fadeInContent, moveDownAnimation, speak) {
   let fetchedArray = await fetchCocktails(isDown);
 
-  speak(strings.cocktails_suggestion + strings.bro);
-
-  setTimeout(() => { 
-    speak(strings.alcohol);
-  }, 1000);
+  speak(strings.cocktails_suggestion + strings.bro + ". " + strings.alcohol);
 
   fadeInContent();
   moveDownAnimation();
@@ -138,6 +134,7 @@ function fetchCocktailById(event) {
     .catch(error => console.log(error));
 }
 
+/* Close Modal */
 function closeModal() {
   $('.bg-modal').css('display', 'none');
   $('.bg-modal').remove();
