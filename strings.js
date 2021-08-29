@@ -89,7 +89,7 @@ const strings = {
     commands_list_cat: "&quot;Show me a random cat&quot;",
     commands_list_meme: "&quot;Tell me a joke&quot;",
     ouch: "Ouch",
-    felizberta_speak: "Olá, o meu nome é Felizbérta. Estou aqui para te ajudar no que precisáres!",
+    felizberta_speak: "Hello, my name is Felizberta. I'm here to help you however you need!",
     felizberta_ask_to_repeat: "Can you please repeat that?",
     api_error: "There was an error fetching your results, please try again later",
     random_cat: "Here's a cute cat, awwww"
