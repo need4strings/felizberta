@@ -63,6 +63,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
   const id = event.target.id;
   const trailer = await dealWithMovieTrailer(id, tmdbApiKey);
   const cast = await dealWithMovieCast(id, tmdbApiKey);
+  const director = await dealWithMovieDirector(id, tmdbApiKey);
   console.log("isto é o sr " + cast)
   console.log("trailer::::::: ", trailer);
   $('.movieContainer').empty();
@@ -81,7 +82,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                <img src="${IMGPATH + poster_path}">
             </div>
             <div class="movieDetails">
-            <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by:</span></h2>
+            <h2>${title}<br> Release Date: ${release_date}<br><span>Directed by: ${director}</span></h2>
                 <div class="rating">
                 <span> Score: ${vote_average}</span>
                 </div>
@@ -91,7 +92,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                   <div class="info">
                     <p> ${overview} </p>
                   </div>
-                  <a href="https://www.youtube.com/embed/${trailer}" target="_blank">Trailer</a>
+                  <a href="https://www.youtube.com/embed/${trailer}" class ="trailer target="_blank">Watch Trailer</a>
                   <div class="star">
                       <h4>cast</h4>
                       <ul>
@@ -101,7 +102,7 @@ const movieSelected = async (event, tmdbApiKey, IMGPATH, clearResult) => {
                           <li><img src="${IMGPATH + cast[3]}"></li>
                           <li><img src="${IMGPATH + cast[4]}"></li>
                           <li><img src="${IMGPATH + cast[5]}"></li>
-                        </ul> 
+                      </ul> 
                   </div>   
             </div>
             </div>  
@@ -137,16 +138,28 @@ const dealWithMovieCast = async (id, tmdbApiKey) => {
   return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
   .then(response => response.json())
   .then(data => {
-      const cast = data.cast.map(({profile_path}) => profile_path)
-      
-      console.log("isto é o cast " + cast);
-      return cast;
-    
-
+    const cast = data.cast.map(({profile_path}) => profile_path)
+    return cast;
     })
 .catch(error => {
   console.log(error);
     });
 }
+
+const dealWithMovieDirector = async (id, tmdbApiKey) => {
+
+  return fetch("https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + tmdbApiKey)
+  .then(response => response.json())
+  .then(data => {
+    const whoDirected = data.crew.find(director => director.job === "Director")
+      console.log("director = " + whoDirected)
+    return whoDirected.name
+    })
+.catch(error => {
+  console.log(error);
+    });
+}
+
+const dealWithMovieGenre = async ()
 
 export default dealWithMovie;
