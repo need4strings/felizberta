@@ -33,14 +33,18 @@ async function fetchCocktails(isDown) {
 
 /*function to select 6 random cocktails*/
 function choose6Cocktails(fetchedArray) {
+  let totalReceivedCocktails = fetchedArray.drinks;
   let totalCocktailsToPresent = 6;
   let chosen6Cocktails = [];
   let randomIndex;
 
   for (let i = 0; i < totalCocktailsToPresent; i++) {
-    //falta verificação para evitar que possam ser indexes iguais
     randomIndex = Math.floor(Math.random() * 100);
-    chosen6Cocktails.push(fetchedArray.drinks[randomIndex]);
+
+    while (chosen6Cocktails.includes(totalReceivedCocktails[randomIndex])){
+      randomIndex = Math.floor(Math.random() * 100);
+    }
+    chosen6Cocktails.push(totalReceivedCocktails[randomIndex]);
   }
   return chosen6Cocktails;
 }
@@ -121,13 +125,14 @@ function fetchCocktailById(event) {
       )
 
 
-      $(".close").click(closeModal);
-      
       for (let ingredient in totalIngredients) {
       $(`.modal-content ul`).append(`<li>${totalIngredients[ingredient]}</li>`);
       }
       
       $('.bg-modal').css('display', 'flex');
+
+      $('.close').click(closeModal);
+      $('')
 
     })
     .catch(error => console.log(error));

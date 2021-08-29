@@ -112,15 +112,17 @@ body {
 	margin: 21px;
 }
 
-
 /* Cocktails*/
 .cocktails {
+	position:relative;
 	max-width: 1000px;
 	margin: 6rem auto 0;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
+	top: 50%;
+	
 }
 
 .cocktails .cocktailsBox{
@@ -215,24 +217,6 @@ body {
 	font-size: 15px;
 }
 
-.cocktailsContent p{
-
-	margin:10px 0 0;
-	padding:10px;
-	font-size: 15px;
-}
-
-.cocktailsContent #instructions{
-	font-size: 10px;
-}
-
-.cocktailsContent ul{
-	list-style-type: none;
-	padding:10px;
-	font-size: 10px;
-	margin-bottom: 20px;
-}
-
 /*modal*/
 .bg-modal{
 	position:absolute;
@@ -255,7 +239,7 @@ body {
   justify-content: center;
   position: relative;
   padding: 50px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
 }
 
@@ -307,6 +291,7 @@ body {
 .modal-details p {
 	line-height: 1.4;
 }
+
 
 @keyframes overlay{
  	from { opacity: 0; }
