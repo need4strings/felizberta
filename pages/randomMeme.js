@@ -1,5 +1,8 @@
 /* Get a random Meme */
 const dealWithRandomMeme = (strings, fadeInContent, moveDownAnimation, speak) => {
+
+  speak(strings.joke);
+
   fetch("https://meme-api.herokuapp.com/gimme/1")
     .then(response => response.json())
     .then(data => {
