@@ -65,7 +65,7 @@ const strings = {
     temperatureCold: "YOU'RE GONNA FREEZE",
     temperatureNormal: "What a lovely temperature, enjoy your day!",
     alcohol: "If you're going to drive, be careful. These are quite strong",
-    cocktails: "Here are my cocktail suggestions!",
+    cocktails_suggestion: "Here are my cocktail suggestions!",
     explain_movies: "Click the talk button and ask me for details about the movie you want!",
     explain_cocktails: "Click the talk button and ask me for a selection of cocktails for tonight!",
     explain_weather: "Click the talk button and ask me for the weather status!",
