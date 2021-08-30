@@ -18,7 +18,7 @@ const strings = {
     temperatureNormal: "Que temperatura agradável, aproveita o teu dia",
     alcohol: "Se fores conduzir tem cuidado que estes são fortes",
     cocktails_suggestion: "Eis as minhas sugestões de cócketeiles",
-    joke: "Tenta não chorar a rir das minhas piada hilárias mano",
+    joke: "Tenta não chorar a rir das minhas piadas hilárias mano",
     commands: "Eis a lista de comandos disponíveis",
     explain_movies: "Clica no botão para falar e pede-me detalhes do filme que quiseres!",
     explain_cocktails: "Clica no botão para falar e pede-me uma seleção de cócketeiles para hoje à noite!",
